@@ -1,0 +1,39 @@
+{
+  "name": "jaws-dashboard",
+  "version": "0.1.0",
+  "scripts": {
+    "start": "DEBUG=true node server.js",
+    "build": "webpack -p --config webpack.production.js",
+    "build-dev": "webpack -p"
+  },
+  "dependencies": {
+    "babel-core": "^5.0.0",
+    "es6-promise": "^3.0.2",
+    "lodash": "^3.10.1",
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0",
+    "redux": "^3.0.4",
+    "react-redux": "^4.0.0",
+    "redux-devtools": "^2.1.5",
+    "redux-thunk": "^1.0.0",
+    "whatwg-fetch": "^0.10.1"
+  },
+  "devDependencies": {
+    "babel-core": "^5.0.0",
+    "babel-loader": "^5.0.0",
+    "babel-plugin-react-display-name": "^2.0.0",
+    "babel-plugin-react-transform": "^1.1.1",
+    "css-loader": "^0.22.0",
+    "cssnext-loader": "^1.0.1",
+    "express": "^4.13.3",
+    "extract-text-webpack-plugin": "^0.9.1",
+    "path": "^0.12.7",
+    "react-transform-catch-errors": "^1.0.0",
+    "react-transform-hmr": "^1.0.1",
+    "redbox-react": "^1.1.1",
+    "style-loader": "^0.13.0",
+    "webpack": "^1.12.4",
+    "webpack-dev-middleware": "^1.2.0",
+    "webpack-hot-middleware": "^2.5.0"
+  }
+}
