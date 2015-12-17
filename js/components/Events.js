@@ -5,7 +5,9 @@ import {bindActionCreators} from 'redux';
 class Events extends Component {
   render() {
     return (
-      <h5>Events</h5>
+      <h5>Events
+      <span className="glyphicon glyphicon-cog pull-right" aria-hidden="true"></span>
+      </h5>
     );
   }
 }
