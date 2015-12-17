@@ -20,7 +20,7 @@
     "redux-devtools-dock-monitor": "^1.0.1",
     "redux-devtools-log-monitor": "^1.0.1",
     "redux-logger": "^2.3.0",
-    "redux-router": "^0.1.0",
+    "redux-router": "^1.0.0-beta5",
     "redux-thunk": "^1.0.0",
     "whatwg-fetch": "^0.10.1"
   },
