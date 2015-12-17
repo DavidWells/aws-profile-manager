@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import TopNav from './TopNav';
 import LeftNav from './LeftNav';
+import Events from './Events';
 
 class Dashboard extends Component {
   render() {
@@ -22,7 +23,8 @@ class Dashboard extends Component {
             <div className="col-md-8">
             </div>
 
-            <div className="col-md-2">
+            <div className="col-md-2 events fill-height">
+              <Events />
             </div>
 
           </div>

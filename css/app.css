@@ -27,3 +27,11 @@ nav.navbar {
   font-weight: bold;
   color: white;
 }
+
+.events {
+  border-left: 2px #ccc solid;
+}
+
+.events h5 {
+  color: #ccc;
+}
