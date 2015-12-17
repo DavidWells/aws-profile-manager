@@ -6,11 +6,11 @@ class TopNav extends Component {
   render() {
     return (
       <nav className="navbar navbar-default navbar-static-top">
-      <div className="container">
+      <div className="container-fluid">
         <div id="navbar" className="navbar-collapse collapse">
           <ul className="nav navbar-nav navbar-right">
-            <li><a href="">Alerts</a></li>
-            <li><a href="">Profile</a></li>
+            <li><a href=""><span className="glyphicon glyphicon-bell" aria-hidden="true"></span></a></li>
+            <li><a href=""><span className="glyphicon glyphicon-user" aria-hidden="true"></span></a></li>
           </ul>
         </div>
       </div>
