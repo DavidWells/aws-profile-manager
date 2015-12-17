@@ -9,14 +9,11 @@ class Home extends Component {
     const {title, dispatch} = this.props;
     const actions = bindActionCreators(HomeActions, dispatch);
     return (
-      <main>
-        <h1 className={styles.text}>Welcome {title}!</h1>
-        <button onClick={e => actions.changeTitle(prompt())}>
-          Update Title
-        </button>
-      </main>
+      <div>
+      Page
+      </div>
     );
   }
 }
 
-export default connect(state => state.Sample)(Home)
+export default connect(state => state)(Home)

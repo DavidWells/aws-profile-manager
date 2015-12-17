@@ -1,7 +1,7 @@
 
-# jaws-dashboard (jaws-dashboard)
+# serverless-dashboard
 
-React and Redux based Dashboard for JAWS
+React and Redux based Dashboard for Serverless
 
 ## Running the project
 
@@ -11,7 +11,7 @@ The generated project includes a development server on port `3000`, which will r
 $ npm start
 ```
 
-To run the server with the dev-tools disabled, run:
+To run the server with the devtools disabled, run:
 
 ```bash
 $ DEBUG=false npm start
