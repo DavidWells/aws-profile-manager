@@ -3,3 +3,7 @@
   line-height: 1.5;
   color: #FF0000;
 }
+
+nav.navbar {
+  background-color: #ccc;
+}
