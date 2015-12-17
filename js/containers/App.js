@@ -12,7 +12,7 @@ export default React.createClass({
   render() {
     return (
       <Provider store={store}>
-        <div>
+        <div className="fill-height">
           <ReduxRouter>
             <Route path="/" component={Dashboard} />
           </ReduxRouter>
