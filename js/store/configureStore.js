@@ -1,16 +1,8 @@
 import {createStore, applyMiddleware, combineReducers, compose} from 'redux';
-import { reduxReactRouter, routerStateReducer } from 'redux-router';
-import createBrowserHistory from 'history/lib/createBrowserHistory';
-import createHashHistory from 'history/lib/createHashHistory';
 import thunkMiddleware from 'redux-thunk';
 import DevTools from '../containers/DevTools';
 import createLogger from 'redux-logger';
-import * as reducers from '../reducers/index';
-
-// Use hash location for Github Pages
-// but switch to HTML5 history locally.
-const createHistory = process.env.NODE_ENV === 'production' ?
-  createHashHistory : createBrowserHistory
+import rootReducer from '../reducers/index';
 
 let createStoreWithMiddleware;
 
@@ -18,15 +10,12 @@ let createStoreWithMiddleware;
 if (__DEV__) {
   createStoreWithMiddleware = compose(
     applyMiddleware(thunkMiddleware),
-    reduxReactRouter({ createHistory }),
     applyMiddleware(createLogger()),
     DevTools.instrument()
   )(createStore);
 } else {
   createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore);
 }
-
-const rootReducer = combineReducers(Object.assign({ router: routerStateReducer }), reducers);
 
 export default function configureStore(initialState) {
    const store = createStoreWithMiddleware(rootReducer, initialState);
