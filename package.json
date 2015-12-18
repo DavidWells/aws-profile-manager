@@ -1,16 +1,22 @@
 {
   "name": "serverless-dashboard",
   "version": "0.1.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/serverless/serverless-dashboard"
+  },
   "scripts": {
     "start": "DEBUG=true node server.js",
     "build": "webpack -p --config webpack.production.js",
     "build-dev": "webpack -p",
-    "test": "NODE_ENV=test karma start"
+    "test": "NODE_ENV=test karma start",
+    "test-single": "NODE_ENV=test karma start --singleRun true --browsers PhantomJS"
   },
   "dependencies": {
     "babel-core": "^5.0.0",
     "es6-promise": "^3.0.2",
-    "history": "^1.13.1",
+    "history": "1.13.1",
     "lodash": "^3.10.1",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
@@ -26,7 +32,6 @@
     "whatwg-fetch": "^0.10.1"
   },
   "devDependencies": {
-    "babel-core": "^5.0.0",
     "babel-loader": "^5.0.0",
     "babel-plugin-react-display-name": "^2.0.0",
     "babel-plugin-react-transform": "^1.1.1",
