@@ -5,7 +5,6 @@ import Select from 'react-select'
 import Layout from '../components/Layout'
 import Button from '../components/Button'
 import styles from './CreateService.css'
-// import { uniqueId } from 'lodash'
 import createDirectory from '../utils/createDirectory'
 import addService from '../actions/addService'
 import walkDirSync from '../utils/walkDirSync'
@@ -53,7 +52,6 @@ class CreateService extends Component {
   }
 
   selectTemplate = (option) => {
-    console.log(option)
     this.setState({
       template: option.value,
     })
@@ -61,16 +59,19 @@ class CreateService extends Component {
 
   createService = () => {
     if (!this.state.directory) {
+      // eslint-disable-next-line no-alert
       alert('Please select a directory!')
       return false
     }
 
     if (!this.state.name) {
+      // eslint-disable-next-line no-alert
       alert('Enter a name for your service in step 2')
       return false
     }
 
     if (!this.state.template) {
+      // eslint-disable-next-line no-alert
       alert('Please select a template!')
       return false
     }
