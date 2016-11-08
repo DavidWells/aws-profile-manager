@@ -11,6 +11,7 @@ import walkDirSync from '../utils/walkDirSync'
 import parseServiceYaml from '../utils/parseServiceYaml'
 import getServerlessCMDPath from '../utils/serverless/getServerlessCMDPath'
 import spawn from '../utils/child_process/betterSpawn'
+import validServiceName from '../utils/validServiceName'
 
 const mapStateToProps = (state) => {
   return {
@@ -66,7 +67,13 @@ class CreateService extends Component {
 
     if (!this.state.name) {
       // eslint-disable-next-line no-alert
-      alert('Enter a name for your service in step 2')
+      alert('Enter a name for your service in step 2.')
+      return false
+    }
+
+    if (!validServiceName(this.state.name)) {
+      // eslint-disable-next-line no-alert
+      alert('Enter a name with only dashes, underscores and alphanumeric characters in step 2.')
       return false
     }
 
