@@ -2,16 +2,17 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import fixPath from 'fix-path'
 import Select from 'react-select'
+import { map } from 'lodash'
 import Layout from '../components/Layout'
 import Button from '../components/Button'
 import styles from './CreateService.css'
-// import { uniqueId } from 'lodash'
 import createDirectory from '../utils/createDirectory'
 import addService from '../actions/addService'
 import walkDirSync from '../utils/walkDirSync'
 import parseServiceYaml from '../utils/parseServiceYaml'
 import getServerlessCMDPath from '../utils/serverless/getServerlessCMDPath'
 import spawn from '../utils/child_process/betterSpawn'
+import validServiceName from '../utils/validServiceName'
 
 const mapStateToProps = (state) => {
   return {
@@ -40,7 +41,6 @@ class CreateService extends Component {
   updateName = (evt) => { this.setState({ name: evt.target.value }) }
 
   selectDirectory = () => {
-    // TODO verify that the user doesn't open the same directory twice
     const directories = createDirectory()
     if (directories && directories.length) {
       // TODO verify this directory doesn't contain a serverless service already
@@ -53,7 +53,6 @@ class CreateService extends Component {
   }
 
   selectTemplate = (option) => {
-    console.log(option)
     this.setState({
       template: option.value,
     })
@@ -61,16 +60,32 @@ class CreateService extends Component {
 
   createService = () => {
     if (!this.state.directory) {
+      // eslint-disable-next-line no-alert
       alert('Please select a directory!')
       return false
     }
 
+    const existingDirectories = map(this.props.services, (service) => service.projectPath)
+    if (existingDirectories.includes(this.state.directory)) {
+      // eslint-disable-next-line no-alert
+      alert('The directory you chose is already in your listed services. Please create another one.')
+      return false
+    }
+
     if (!this.state.name) {
-      alert('Enter a name for your service in step 2')
+      // eslint-disable-next-line no-alert
+      alert('Enter a name for your service in step 2.')
+      return false
+    }
+
+    if (!validServiceName(this.state.name)) {
+      // eslint-disable-next-line no-alert
+      alert('Enter a name with only dashes, underscores and alphanumeric characters in step 2.')
       return false
     }
 
     if (!this.state.template) {
+      // eslint-disable-next-line no-alert
       alert('Please select a template!')
       return false
     }
