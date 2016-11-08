@@ -27,7 +27,7 @@ And then install dependencies.
 cd dashboard && npm install
 ```
 
-## Run
+## Running locally
 
 Run these two commands __simultaneously__ in different console tabs.
 
@@ -44,6 +44,7 @@ Run `npm run hot-server` and `npm run start-hot` in separate terminal windows
 
 - `./app` react/redux app for UI
 - `./desktop/main.development.js` is the electron main process file
+- `./static` Static assets like images/fonts/svgs
 
 ## Externals
 
@@ -63,46 +64,6 @@ All `.css` file extensions will use css-modules unless it has `.global.css`.
 
 If you need global styles, stylesheets with `.global.css` will not go through the
 css-modules loader. e.g. `app.global.css`
-
-
-## Packaging for distribution
-
-```bash
-$ npm run package
-```
-
-To package apps for all platforms:
-
-```bash
-$ npm run package-all
-```
-
-To package apps with options:
-
-```bash
-$ npm run package -- --[option]
-```
-
-#### Options
-
-- --name, -n: Application name
-- --version, -v: Electron version (default: latest version)
-- --asar, -a: [asar](https://github.com/atom/asar) support (default: false)
-- --icon, -i: Application icon
-- --all: pack for all platforms
-
-Use `electron-packager` to pack your app with `--all` options for darwin (osx), linux and win32 (windows) platform. After build, you will find them in `release` folder. Otherwise, you will only find one for your os.
-
-`test`, `tools`, `release` folder and devDependencies in `package.json` will be ignored by default.
-
-#### Default Ignore modules
-
-We add some module's `peerDependencies` to ignore option as default for application size reduction.
-
-- `babel-core` is required by `babel-loader` and its size is ~19 MB
-- `node-libs-browser` is required by `webpack` and its size is ~3MB.
-
-> **Note:** If you want to use any above modules in runtime, for example: `require('babel/register')`, you should move them from `devDependencies` to `dependencies`.
 
 # Prior Art
 
