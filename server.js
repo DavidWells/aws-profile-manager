@@ -1,29 +1,39 @@
-var path = require('path');
-var webpack = require('webpack');
-var express = require('express');
-var config = require('./webpack.config');
+/* eslint-disable no-console import/no-extraneous-dependencies */
+/* eslint-disable import/no-extraneous-dependencies */
+/* Webpack dev server for local dev */
+import express from 'express'
+import webpack from 'webpack'
+import webpackDevMiddleware from 'webpack-dev-middleware'
+import webpackHotMiddleware from 'webpack-hot-middleware'
+import config from './webpack.config.development'
 
-var app = express();
-var compiler = webpack(config);
+const app = express()
+const compiler = webpack(config)
+const PORT = process.env.PORT || 3000
 
-app.use(require('webpack-dev-middleware')(compiler, {
-  noInfo: true,
+const wdm = webpackDevMiddleware(compiler, {
   publicPath: config.output.publicPath,
-  historyApiFallback: true
-}));
-
-app.use(require('webpack-hot-middleware')(compiler));
-
-app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, 'index.html'));
-});
-
-app.use('/css', express.static(__dirname + '/css'));
-
-app.listen(3000, 'localhost', function (err, result) {
-  if (err) {
-    console.log(err);
+  stats: {
+    colors: true
   }
+})
 
-  console.log('Listening at localhost:3000');
-});
+app.use(wdm)
+
+app.use(webpackHotMiddleware(compiler))
+
+const server = app.listen(PORT, 'localhost', err => {
+  if (err) {
+    console.error(err)
+    return
+  }
+  console.log(`Listening at http://localhost:${PORT}`)
+})
+
+process.on('SIGTERM', () => {
+  console.log('Stopping dev server')
+  wdm.close()
+  server.close(() => {
+    process.exit(0)
+  })
+})
