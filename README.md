@@ -42,8 +42,8 @@ Run `npm run hot-server` and `npm run start-hot` in separate terminal windows
 
 ## File structure:
 
-- `./app` Has vanilla react/redux app
-- `main.development.js` is the electron main process file
+- `./app` react/redux app for UI
+- `./desktop/main.development.js` is the electron main process file
 
 ## Externals
 
