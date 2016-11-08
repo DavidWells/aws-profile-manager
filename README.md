@@ -11,7 +11,7 @@ See the goals of the project [here](./docs/README.md)
 
 ## Install
 
-Download the latest version of the desktop app [here](https://s3-us-west-2.amazonaws.com/assets.dashboard/Serverless.app.0.0.1.zip)
+Download the latest version of the desktop app [here](https://s3-us-west-2.amazonaws.com/assets.dashboard/Serverless.app.0.0.2.zip)
 
 Or install the desktop app locally
 
