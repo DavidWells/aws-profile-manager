@@ -1,0 +1,5 @@
+- type: parallel
+  service: dashboard_dev
+  steps:
+    - command: npm run lint
+    - command: npm run build

@@ -1,0 +1,15 @@
+FROM node:6.7.0
+
+RUN apt-get -qq update -y
+
+RUN apt-get -qq install -y python-pip
+RUN pip install -q awscli
+
+WORKDIR /dashboard
+
+RUN npm install -g  --quiet --depth 0 serverless@1.0.0-rc.1
+
+COPY package.json ./
+RUN npm install --quiet --depth 0
+
+COPY ./ ./
