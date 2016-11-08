@@ -1,0 +1,15 @@
+.welcomeWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 70vh;
+  flex-direction: column;
+  text-align: center;
+}
+.heading {
+  /* Serverless Dashboard: */
+  font-family: AvenirNext-DemiBold;
+  font-size: 16px;
+  color: #000000;
+  letter-spacing: 0px;
+}

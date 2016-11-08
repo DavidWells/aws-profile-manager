@@ -1,0 +1,27 @@
+.wrapper {
+  padding: 0 30px;
+}
+.field {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  input {
+    width: 200px;
+    padding: 5px;
+  }
+}
+.openButton {
+  width: 140px;
+  margin-top: 10px;
+}
+.installDir {
+  font-size: 13px;
+  margin-left: 10px;
+}
+.select {
+  max-width: 300px;
+}
+.createButton {
+  margin-top: 20px;
+  width: 140px;
+}

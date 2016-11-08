@@ -1,0 +1,15 @@
+$sidebarWidth: 250px;
+.sidebar {
+  width: $sidebarWidth;
+  min-width: $sidebarWidth;
+  background: #FFD426;
+}
+.contents {
+  background: #FFD426;
+  position: fixed;
+  width: $sidebarWidth;
+  min-width: $sidebarWidth;
+  height: 100%;
+  left: 0;
+  top: $navHeight;
+}

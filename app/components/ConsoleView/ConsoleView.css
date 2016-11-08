@@ -1,0 +1,31 @@
+.console {
+  width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  background: #000;
+  color: #ffd426;
+  font-size: 12px;
+
+  position: relative;
+  z-index: 2;
+  .bg {
+    content: '';
+    background: #000;
+    position: absolute;
+    width: 100%;
+    height: 200vh;
+    z-index: 1;
+    left: 0;
+  }
+  .text {
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+  }
+  pre {
+    white-space: pre-line;
+    word-break: break-word;
+    padding: 20px;
+    padding-top: 10px;
+  }
+}

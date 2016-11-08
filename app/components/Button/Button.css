@@ -1,0 +1,20 @@
+.button {
+  font-family: AvenirNext-DemiBold;
+  font-size: 12px;
+  color: #1C1C1C;
+  letter-spacing: 0px;
+  border-radius: 2px;
+  width: 100%;
+  background: #fff;
+  outline: none;
+  color: #1C1C1C;
+  border: 1px solid #1C1C1C;
+  font-weight: 500;
+  cursor: pointer;
+  &:hover {
+    background: #eee;
+  }
+  &:focus {
+    color: #1C1C1C;
+  }
+}
