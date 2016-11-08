@@ -9,9 +9,11 @@ What the desktop app is **NOT**
 
 See the goals of the project [here](./docs/README.md)
 
-## Install
+## [Download App](http://bit.ly/2fj7wmC)
 
-Download the latest version of the desktop app [here](https://s3-us-west-2.amazonaws.com/assets.dashboard/Serverless.app.0.0.2.zip)
+## Install and run locally
+
+Download the latest version of the desktop app [here](http://bit.ly/2fj7wmC)
 
 Or install the desktop app locally
 
