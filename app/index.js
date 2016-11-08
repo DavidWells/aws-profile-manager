@@ -8,7 +8,12 @@ import configureStore from './store/configureStore'
 import loadServicesFromStorage from './utils/loadServicesFromStorage'
 import parseAwsCredentials from './utils/parseAwsCredentials'
 import checkForUpdates from './utils/checkForUpdates'
+import setupErrorTracking from '../desktop/utils/setupErrorTracking'
 import './app.global.css'
+
+if (process.env.NODE_ENV !== 'development') {
+  setupErrorTracking()
+}
 
 // Disable pinch zoom
 webFrame.setZoomLevelLimits(1, 1)

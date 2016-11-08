@@ -27,17 +27,23 @@ let template
 let mainWindow = null
 
 if (isDev) {
-  require('electron-debug')() // eslint-disable-line global-require
+  // eslint-disable-next-line global-require
+  require('electron-debug')()
+}
+
+if (!isDev) {
+  // eslint-disable-next-line global-require
+  require('./utils/setupErrorTracking')()
+} else {
+  process.on('uncaughtException', (error) => {
+    console.error(`ERROR Exception => ${error.stack}`)
+  })
 }
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
   }
-})
-
-process.on('uncaughtException', (error) => {
-  console.error(`ERROR Exception => ${error.stack}`)
 })
 
 app.on('open-url', (e, url) => {
