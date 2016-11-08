@@ -79,8 +79,15 @@ class CreateService extends Component {
     }
 
     if (!validServiceName(this.state.name)) {
+      const errorMessage = [
+        `The stack service name "${this.state.name}" is not valid. `,
+        'A service name should only contain alphanumeric',
+        ' (case sensitive) and hyphens. It should start',
+        ' with an alphabetic character and shouldn\'t',
+        ' exceed 128 characters.',
+      ].join('')
       // eslint-disable-next-line no-alert
-      alert('Enter a name with only dashes, underscores and alphanumeric characters in step 2.')
+      alert(errorMessage)
       return false
     }
 
