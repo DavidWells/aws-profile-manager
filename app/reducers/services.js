@@ -17,6 +17,7 @@ import {
   UPDATE_COMMAND_OUTPUT,
   UPDATE_SERVICE_DETAILS,
   UPDATE_SERVICE_DETAILS_ERROR,
+  CLEAR_CONSOLE_FOR_SERVICE,
 } from '../constants/actions'
 import {
   region as defaultRegion,
@@ -44,6 +45,7 @@ export default (state = {}, action) => {
         [action.service.id]: {
           ...action.service,
           commands: [],
+          lastCommandCleared: false,
           region: setRegion,
           stage: defaultStage,
           profile: profileKeys[0],
@@ -108,6 +110,7 @@ export default (state = {}, action) => {
         ...state,
         [action.serviceId]: {
           ...state[action.serviceId],
+          lastCommandCleared: false,
           commands: [
             {
               ...latestCommand,
@@ -144,6 +147,17 @@ export default (state = {}, action) => {
       // Note: this is a side-effect and should be handled with redux-sage or similar
       saveServicesToStorage(newState9)
       return newState9
+    case CLEAR_CONSOLE_FOR_SERVICE:
+      const newState10 = {
+        ...state,
+        [action.serviceId]: {
+          ...state[action.serviceId],
+          lastCommandCleared: true,
+        }
+      }
+      // Note: this is a side-effect and should be handled with redux-sage or similar
+      saveServicesToStorage(newState10)
+      return newState10
     default:
       return state
   }

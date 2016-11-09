@@ -1,7 +1,8 @@
 import React from 'react'
+import Button from '../Button'
 import styles from './ConsoleView.css'
 
-const ConsoleView = ({ service }) => {
+const ConsoleView = ({ service, clearConsoleForService }) => {
   let text = (
     <pre>No commands run yet. Deploy your service!</pre>
   )
@@ -12,9 +13,10 @@ const ConsoleView = ({ service }) => {
   }
   return (
     <div className={styles.console}>
+      <Button onClick={() => { clearConsoleForService(service.id) }}>Clear Console</Button>
       <div className={styles.bg} />
       <div className={styles.text}>
-        {text}
+        {!service.lastCommandCleared && text}
       </div>
     </div>
   )
