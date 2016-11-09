@@ -11,14 +11,21 @@ export default class ContentEditable extends React.Component {
     this.state = {
       disabled: true
     }
+    this.hasFocused = false
   }
-  handleDoubleClick = (e) => {
+  handleClick = (e) => {
     e.preventDefault()
     const event = e || window.event
-    const caretRange = getMouseEventCaretRange(event)
-    window.setTimeout(() => {
-      selectRange(caretRange)
-    }, 0)
+    // hacks to give the contenteditable block a better UX
+    event.persist()
+    if (!this.hasFocused) {
+      const caretRange = getMouseEventCaretRange(event)
+      window.setTimeout(() => {
+        selectRange(caretRange)
+        this.hasFocused = true
+      }, 0)
+    }
+    // end hacks to give the contenteditable block a better UX
     this.setState({
       disabled: false
     })
@@ -26,6 +33,8 @@ export default class ContentEditable extends React.Component {
   handleClickOutside = () => {
     this.setState({
       disabled: true
+    }, () => {
+      this.hasFocused = false // reset single click functionality
     })
   }
   render() {
@@ -33,7 +42,7 @@ export default class ContentEditable extends React.Component {
     return (
       <Editable
         className={styles.editable}
-        onClick={this.handleDoubleClick}
+        onClick={this.handleClick}
         onBlur={this.handleClickOutside}
         html={children}
         disabled={this.state.disabled}
