@@ -112,6 +112,7 @@
     "raven": "^0.12.1",
     "raven-js": "^3.8.0",
     "react": "^15.3.2",
+    "react-contenteditable": "^2.0.1",
     "react-dom": "^15.3.2",
     "react-redux": "^4.4.5",
     "react-router": "^2.8.0",
