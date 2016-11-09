@@ -3,6 +3,8 @@
  */
 import path from 'path'
 import { app, BrowserWindow, Menu, shell, ipcMain } from 'electron'
+import isPreviousUser from './utils/checkIfExistingUser'
+
 const installDevExtensions = async () => {
   if (process.env.NODE_ENV === 'development') {
     const installer = require('electron-devtools-installer') // eslint-disable-line
@@ -31,14 +33,13 @@ if (isDev) {
   require('electron-debug')()
 }
 
-if (!isDev) {
-  // eslint-disable-next-line global-require
-  require('./utils/setupErrorTracking')()
-} else {
-  process.on('uncaughtException', (error) => {
-    console.error(`ERROR Exception => ${error.stack}`)
-  })
-}
+// eslint-disable-next-line global-require
+// Raven tracking is broken. This needs to be verified with `npm run package` that is works in the packaged application.
+// require('./utils/setupErrorTracking')()
+
+process.on('uncaughtException', (error) => {
+  console.error(`ERROR Exception => ${error.stack}`)
+})
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
@@ -71,8 +72,11 @@ app.on('ready', async () => {
 
   ipcMain.on('ui-ready', (event, arg) => {
     console.log(arg)  // prints "ping"
-    const appVersion = app.getVersion()
-    event.sender.send('debugFromMain', appVersion)
+    // const appVersion = app.getVersion()
+    const wasUser = isPreviousUser()
+    console.log('wasUser', wasUser)
+    const test = 'is existing user ' + wasUser
+    event.sender.send('debugFromMain', test)
   })
 
   mainWindow = new BrowserWindow({
