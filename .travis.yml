@@ -1,18 +1,7 @@
 sudo: false
-
 language: node_js
-
 node_js:
   - 6
-
-cache:
-  directories:
-    - node_modules
-
-install:
-  - npm install -g npm@latest
-  - npm install
-
 script:
   - npm run lint
   - npm run build
