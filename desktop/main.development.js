@@ -3,7 +3,7 @@
  */
 import path from 'path'
 import { app, BrowserWindow, Menu, shell, ipcMain } from 'electron'
-import isPreviousUser from './utils/checkIfExistingUser'
+import checkIfExistingUser from './utils/checkIfExistingUser'
 
 const installDevExtensions = async () => {
   if (process.env.NODE_ENV === 'development') {
@@ -73,10 +73,8 @@ app.on('ready', async () => {
   ipcMain.on('ui-ready', (event, arg) => {
     console.log(arg)  // prints "ping"
     // const appVersion = app.getVersion()
-    const wasUser = isPreviousUser()
-    console.log('wasUser', wasUser)
-    const test = 'is existing user ' + wasUser
-    event.sender.send('debugFromMain', test)
+    const userID = checkIfExistingUser()
+    event.sender.send('debugFromMain', userID)
   })
 
   mainWindow = new BrowserWindow({
