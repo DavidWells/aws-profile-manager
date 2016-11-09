@@ -11,28 +11,41 @@ const packager = require('electron-packager')
 const del = require('del')
 const exec = require('child_process').exec
 const argv = require('minimist')(process.argv.slice(2))
+const serverlessPkg = require('serverless/package.json')
 const pkg = require('../package.json')
-
+console.log(serverlessPkg)
 const deps = Object.keys(pkg.dependencies)
 const devDeps = Object.keys(pkg.devDependencies)
 
 const appName = argv.name || argv.n || pkg.productName
 const shouldUseAsar = argv.asar || argv.a || false
 const shouldBuildAll = argv.all || false
+const renameModulePath = (name) => {
+  return `/node_modules/${name}($|/)`
+}
+const slsDeps = Object.keys(serverlessPkg.dependencies)
+const slsDevDeps = Object.keys(serverlessPkg.devDependencies)
+const ignoreFiles = [
+  '^/test($|/)',
+  '^/release($|/)',
+  '^/main.development.js',
+]
+.concat(devDeps.filter(name => {
+  return !slsDevDeps.includes(name) && !slsDeps.includes(name)
+}).map(renameModulePath)
+.concat(deps.filter(name => {
+  return !slsDevDeps.includes(name) && !slsDeps.includes(name) && !electronCfg.externals.includes(name)
+}).map(renameModulePath))
+)
+
+console.log(ignoreFiles)
+
 
 const DEFAULT_OPTS = {
   dir: './',
   name: appName,
   asar: shouldUseAsar,
-  ignore: [
-    '^/test($|/)',
-    '^/release($|/)',
-    '^/main.development.js'
-  ].concat(devDeps.map(name => `/node_modules/${name}($|/)`))
-  .concat(
-    deps.filter(name => !electronCfg.externals.includes(name))
-      .map(name => `/node_modules/${name}($|/)`)
-  )
+  ignore: ignoreFiles
 }
 
 const icon = argv.icon || argv.i || 'static/app'

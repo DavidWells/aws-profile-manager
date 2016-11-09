@@ -9,11 +9,11 @@ What the desktop app is **NOT**
 
 See the goals of the project [here](./docs/README.md)
 
-## [Download App](http://bit.ly/2fj7wmC)
+## [Download App](http://bit.ly/serverless-dashboard)
 
 ## Install and run locally
 
-Download the latest version of the desktop app [here](http://bit.ly/2fj7wmC)
+Download the latest version of the desktop app [here](http://bit.ly/serverless-dashboard)
 
 Or install the desktop app locally
 
