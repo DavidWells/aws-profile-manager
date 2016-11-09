@@ -13,18 +13,18 @@ const exec = require('child_process').exec
 const argv = require('minimist')(process.argv.slice(2))
 const serverlessPkg = require('serverless/package.json')
 const pkg = require('../package.json')
-console.log(serverlessPkg)
-const deps = Object.keys(pkg.dependencies)
-const devDeps = Object.keys(pkg.devDependencies)
-
 const appName = argv.name || argv.n || pkg.productName
 const shouldUseAsar = argv.asar || argv.a || false
 const shouldBuildAll = argv.all || false
+const deps = Object.keys(pkg.dependencies)
+const devDeps = Object.keys(pkg.devDependencies)
+const slsDeps = Object.keys(serverlessPkg.dependencies)
+const slsDevDeps = Object.keys(serverlessPkg.devDependencies)
+
 const renameModulePath = (name) => {
   return `/node_modules/${name}($|/)`
 }
-const slsDeps = Object.keys(serverlessPkg.dependencies)
-const slsDevDeps = Object.keys(serverlessPkg.devDependencies)
+
 const ignoreFiles = [
   '^/test($|/)',
   '^/release($|/)',
@@ -38,8 +38,7 @@ const ignoreFiles = [
 }).map(renameModulePath))
 )
 
-console.log(ignoreFiles)
-
+console.log('these files will not be packaged with electron application', ignoreFiles)
 
 const DEFAULT_OPTS = {
   dir: './',
