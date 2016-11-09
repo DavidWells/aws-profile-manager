@@ -1,0 +1,6 @@
+.editable {
+  cursor: text;
+}
+.editable[contenteditable="true"] {
+  outline: 3px solid #efefef;
+}

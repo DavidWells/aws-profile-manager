@@ -6,6 +6,7 @@ import Select, { Creatable } from 'react-select'
 import { shell } from 'electron'
 import Layout from '../Layout'
 import Button from '../Button'
+import ContentEditable from '../ContentEditable'
 import lambdaRegions from '../../constants/lambdaRegions'
 import stages from '../../constants/stageDefaults'
 import Resources from '../Resources'
@@ -96,7 +97,11 @@ export default class ServiceView extends Component {
         <div className={styles.header}>
           <div className={styles.headerLeft}>
             <h2 className={styles.serviceName}>
-              {service.config.service}
+              <ContentEditable
+                onChange={(e, value) => console.log(e.target.value)} // handle innerHTML change
+              >
+                {service.config.service}
+              </ContentEditable>
             </h2>
             <div className={styles.currentServiceContext}>
               <div className={styles.currentStage}>
