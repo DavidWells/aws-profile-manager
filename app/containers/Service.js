@@ -5,6 +5,7 @@ import setRegionForService from '../actions/setRegionForService'
 import setStageForService from '../actions/setStageForService'
 import runServiceDeploy from '../actions/runServiceDeploy'
 import runFunctionDeploy from '../actions/runFunctionDeploy'
+import clearConsoleForService from '../actions/clearConsoleForService'
 import runInvoke from '../actions/runInvoke'
 import runLogs from '../actions/runLogs'
 import refreshServiceFromFileSystem from '../actions/refreshServiceFromFileSystem'
@@ -45,4 +46,5 @@ export default connect(mapStateToProps, {
   runLogs,
   runInvoke,
   refreshServiceFromFileSystem,
+  clearConsoleForService,
 })(ServiceDetail)

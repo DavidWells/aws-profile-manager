@@ -177,7 +177,7 @@ export default class ServiceView extends Component {
           </div>
 
           <div className={styles.contentsRight}>
-            <ConsoleView service={service} />
+            <ConsoleView service={service} clearConsoleForService={props.clearConsoleForService} />
           </div>
 
         </div>
