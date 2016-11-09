@@ -18,10 +18,10 @@ if (process.env.NODE_ENV !== 'development') {
 // Disable pinch zoom
 webFrame.setZoomLevelLimits(1, 1)
 
-/* IPC for debuging  */
+/* IPC for debuging */
 ipcRenderer.send('ui-ready', 'ping')
 ipcRenderer.on('debugFromMain', (e, arg) => {
-  console.log('debugFromMain', arg)
+  console.log(arg)
 })
 
 checkForUpdates().then((data) => {
