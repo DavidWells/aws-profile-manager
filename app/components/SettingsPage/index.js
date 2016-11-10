@@ -6,12 +6,14 @@ import Button from '../Button'
 import styles from './SettingPage.css'
 // import AddCredentials from '../AddCredentials'
 ipcRenderer.on('debugFromRestartMain', (e, arg) => {
-  console.log(arg)
+  /* this is hack to reload app... */
+  remote.getCurrentWindow().reload()
 })
 export default class Settings extends React.Component {
   handleReset = () => {
     window.localStorage.removeItem('services')
     console.log('RESET Triggered')
+    /* this restart works in dev but not in prod */
     ipcRenderer.send('reset-and-restart-app', 'BOOM')
   }
   render() {
