@@ -71,27 +71,6 @@ export default class ServiceView extends Component {
       label: `Profile: ${key}`
     }))
 
-    const invokeModal = (
-      <Modal
-        active={this.state.showInvokeModal}
-        onEscKeyDown={this.hideInvokeModal}
-        onOverlayClick={this.hideInvokeModal}
-        title='Invoke your function with data'
-      >
-        <div className={styles.invokeBox}>
-          <textarea ref='eventData' placeholder='enter your json here' />
-        </div>
-        <div className={styles.modalButtons}>
-          <Button type='button' onClick={this.handleRunInvoke}>
-            Invoke Function
-          </Button>
-          <Button onClick={this.hideInvokeModal}>
-            Cancel
-          </Button>
-        </div>
-      </Modal>
-    )
-
     const content = (
       <div className={styles.content}>
         <div className={styles.header}>
@@ -181,7 +160,24 @@ export default class ServiceView extends Component {
           </div>
 
         </div>
-        {invokeModal}
+        <Modal
+          active={this.state.showInvokeModal}
+          onEscKeyDown={this.hideInvokeModal}
+          onOverlayClick={this.hideInvokeModal}
+          title='Invoke your function with data'
+        >
+          <div className={styles.invokeBox}>
+            <textarea ref='eventData' placeholder='enter your json here' />
+          </div>
+          <div className={styles.modalButtons}>
+            <Button type='button' onClick={this.handleRunInvoke}>
+              Invoke Function
+            </Button>
+            <Button onClick={this.hideInvokeModal}>
+              Cancel
+            </Button>
+          </div>
+        </Modal>
       </div>
     )
 
