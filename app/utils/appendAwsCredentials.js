@@ -1,6 +1,5 @@
 import fs from 'fs'
-import getAwsCredentialsFilePath from './getAwsCredentialsFilePath'
-import parseAwsCredentials from './parseAwsCredentials'
+import { parseAwsCredentials, getAwsCredentialsFilePath } from './aws'
 
 const appendAwsCredentials = ({ profile, awsAccessKeyId, awsSecretAccessKey }) => {
   const credentialsPath = getAwsCredentialsFilePath()
