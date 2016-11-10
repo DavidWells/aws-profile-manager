@@ -11,4 +11,5 @@ if (process.env.NODE_ENV === 'development') {
   currentVersion = remote.app.getVersion()
 }
 
+// TODO this should be either a function that returns the version
 export default currentVersion
