@@ -13,8 +13,6 @@ export const getAwsCredentialsFilePath = () => {
   return path.join(home, '.aws', 'credentials')
 }
 
-
-
 /*
   Returns string of contents of aws crendentials file
 */
@@ -30,9 +28,8 @@ export const getAwsCredentialsFile = () => {
 /*
   Returns object of AWS profiles
 */
-export const parseAwsCredentials = () => {
+export const getAwsCredentials = () => {
   const fileContents = getAwsCredentialsFile()
-  console.log('fileContents', fileContents)
   const profiles = {}
   const lines = fileContents.split(/\r?\n/)
   let currentSection
@@ -53,9 +50,7 @@ export const parseAwsCredentials = () => {
 }
 
 export function updateAwsProfile(profileName, values) {
-
   const awsCredentialsFile = getAwsCredentialsFile()
-  console.log('ran', awsCredentialsFile)
   // do backup here
   /* pattern /^\s*\[default((.|\n)*?.*^(\[|\s)/gm */
   const pattern = new RegExp(`^\s*\\[${profileName}((.|\\n)*?.*^(\\[|\\s))`, "gm") // eslint-disable-line
@@ -88,6 +83,21 @@ export function updateAwsProfile(profileName, values) {
     }
   }
   // const t = file.match(/^\s*\[default(\s*?.*?)*?\s*\[/gm)
+}
+
+export const appendAwsCredentials = ({ profile, awsAccessKeyId, awsSecretAccessKey }) => {
+  const credentialsPath = getAwsCredentialsFilePath()
+  try {
+    const content = [
+      `[${profile}]\n`,
+      `aws_access_key_id=${awsAccessKeyId}\n`,
+      `aws_secret_access_key=${awsSecretAccessKey}\n\n`
+    ].join('')
+    fs.appendFileSync(credentialsPath, content)
+    return getAwsCredentials()
+  } catch (err) {
+    return {}
+  }
 }
 
 /*
