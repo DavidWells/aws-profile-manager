@@ -5,6 +5,12 @@ import path from 'path'
 import { app, BrowserWindow, Menu, shell, ipcMain } from 'electron'
 import checkIfExistingUser from './utils/checkIfExistingUser'
 
+// This object then is accessible in the renderer as well via
+// require('electron').remote.getGlobal('sharedObject').appVersion
+global.sharedObject = {
+  appVersion: app.getVersion()
+}
+
 const installDevExtensions = async () => {
   if (process.env.NODE_ENV === 'development') {
     const installer = require('electron-devtools-installer') // eslint-disable-line
@@ -79,7 +85,7 @@ app.on('ready', async () => {
 
   ipcMain.on('reset-and-restart-app', (event, arg) => {
     event.sender.send('debugFromRestartMain', 'it ran')
-    app.relaunch({args: process.argv.slice(1).concat(['--relaunch'])})
+    app.relaunch({ args: process.argv.slice(1).concat(['--relaunch']) })
     app.exit(0)
     event.sender.send('debugFromRestartMain', 'relaunch ran?')
   })

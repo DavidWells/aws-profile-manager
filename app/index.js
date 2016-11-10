@@ -15,7 +15,7 @@ import checkForUpdates from './utils/checkForUpdates'
 import setupErrorTracking from '../desktop/utils/setupErrorTracking'
 import './app.global.css'
 
-if (process.env.NODE_ENV !== 'development') {
+if (process.env.NODE_ENV === 'development') {
   setupErrorTracking()
 }
 
