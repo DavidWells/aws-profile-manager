@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { shell } from 'electron'
 import styles from './AddCredentials.css'
-import Button from '../Button'
 
 class AddCredentials extends Component {
 
@@ -36,6 +35,7 @@ class AddCredentials extends Component {
           <a
             onClick={(e) => { e.preventDefault(); shell.openExternal(consoleLink) }}
             href='https://console.aws.amazon.com/console/home'
+            className={styles.link}
           >
             Login to your AWS account
           </a> and follow the video below to get started
@@ -44,7 +44,7 @@ class AddCredentials extends Component {
           <div className={styles.player}>
             <div className={styles.videoWrapper}>
               <div className={styles.video}>
-                <iframe src='https://player.vimeo.com/video/190626782?title=0&byline=0&portrait=0' width='550' height='344' frameBorder='0' webkitallowfullscreen mozallowfullscreen allowFullScreen />
+                <iframe src='https://player.vimeo.com/video/190626782?title=0&byline=0&portrait=0' width='450' height='281' frameBorder='0' webkitallowfullscreen mozallowfullscreen allowFullScreen />
               </div>
             </div>
           </div>
@@ -77,13 +77,13 @@ class AddCredentials extends Component {
             value={this.state.awsSecretAccessKey}
           />
         </div>
-        <Button
+        <button
           className={styles.createButton}
           onClick={this.addCredentials}
           disabled={!this.state.profile || !this.state.awsAccessKeyId || !this.state.awsSecretAccessKey}
         >
           Save
-        </Button>
+        </button>
       </div>
     )
   }
