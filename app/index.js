@@ -6,7 +6,11 @@ import { Router, hashHistory } from 'react-router'
 import routes from './routes'
 import configureStore from './store/configureStore'
 import loadServicesFromStorage from './utils/loadServicesFromStorage'
-import { getAWSCredentials, getAWSProfileData, deleteAWSProfile } from './utils/aws'
+import {
+  getAWSCredentials,
+  getAWSProfileData,
+  // deleteAWSProfile
+} from './utils/aws'
 import checkForUpdates from './utils/checkForUpdates'
 import setupErrorTracking from '../desktop/utils/setupErrorTracking'
 import './app.global.css'

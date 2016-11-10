@@ -2,7 +2,11 @@ import React, { PropTypes } from 'react'
 import Modal from 'serverless-site/src/components/Modal'
 import Button from '../Button'
 import Card from '../Card'
-import { getAWSCredentials, updateAWSProfile, deleteAWSProfile } from '../../utils/aws'
+import {
+  getAWSCredentials,
+  // updateAWSProfile,
+  deleteAWSProfile
+} from '../../utils/aws'
 import styles from './ManageCredentials.css'
 
 const propTypes = {
@@ -140,7 +144,8 @@ export default class ManageCredentials extends React.Component {
               <Button
                 onClick={this.showModal}
                 data-profile={profile}
-                data-action='edit'>
+                data-action='edit'
+              >
                 Edit
               </Button>
               <Button
