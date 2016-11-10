@@ -80,6 +80,7 @@
     "minimist": "^1.2.0",
     "mocha": "^3.0.2",
     "node-libs-browser": "^1.0.0",
+    "opn": "^4.0.2",
     "postcss-cssnext": "^2.8.0",
     "postcss-loader": "^1.1.0",
     "postcss-nested": "^1.0.0",
