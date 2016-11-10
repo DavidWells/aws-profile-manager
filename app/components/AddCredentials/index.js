@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { shell } from 'electron'
 import styles from './AddCredentials.css'
-import Button from '../Button'
 
 class AddCredentials extends Component {
 

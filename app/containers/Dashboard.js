@@ -19,11 +19,10 @@ const Dashboard = (props) => {
   }
   return (
     <div>
-      <AddCredentials addCredentials={props.addCredentials} />
-      {/* { isEmpty(props.services)
+      { isEmpty(props.services)
         ? <Welcome history={props.history} />
         : <ServiceList history={props.history} />
-      } */}
+      }
     </div>
   )
 }
