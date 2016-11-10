@@ -17,6 +17,14 @@ import {
   PATH_NOT_FOUND,
   PARSING_YAML_FAILED,
 } from '../../constants/errors'
+import findMostRecentInvokeData from '../../utils/findMostRecentInvokeData'
+
+const jsonPlaceholder = `enter your json here e.g.
+
+{
+ "key1": "this is an example",
+ "key2": 42
+}`
 
 export default class ServiceView extends Component {
   constructor(props) {
@@ -167,7 +175,11 @@ export default class ServiceView extends Component {
           title='Invoke your function with data'
         >
           <div className={styles.invokeBox}>
-            <textarea ref='eventData' placeholder='enter your json here' />
+            <textarea
+              ref='eventData'
+              placeholder={jsonPlaceholder}
+              defaultValue={findMostRecentInvokeData(service.commands)}
+            />
           </div>
           <div className={styles.modalButtons}>
             <Button type='button' onClick={this.handleRunInvoke}>
