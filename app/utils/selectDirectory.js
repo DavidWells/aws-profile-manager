@@ -1,3 +1,5 @@
 import electron from 'electron'
 
-export default () => electron.remote.dialog.showOpenDialog({ properties: ['openDirectory'] })
+export default () => {
+  return electron.remote.dialog.showOpenDialog({ properties: ['openDirectory'] })
+}

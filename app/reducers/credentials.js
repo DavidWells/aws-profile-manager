@@ -1,5 +1,5 @@
 import { ADD_CREDENTIALS } from '../constants/actions'
-import appendAwsCredentials from '../utils/appendAwsCredentials'
+import { appendAwsCredentials } from '../utils/aws'
 
 export default (state = {}, action) => {
   switch (action.type) {

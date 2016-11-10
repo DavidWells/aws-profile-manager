@@ -9,7 +9,7 @@ import styles from './AddService.css'
 class AddScreen extends Component {
 
   static propTypes = {
-    services: PropTypes.object.isRequired,
+    services: PropTypes.object,
     addService: PropTypes.func.isRequired,
     history: PropTypes.object.isRequired,
   }

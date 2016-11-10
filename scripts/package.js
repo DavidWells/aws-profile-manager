@@ -3,12 +3,15 @@
 'use strict'
 
 require('babel-polyfill')
+const path = require('path')
 const os = require('os')
 const webpack = require('webpack')
+const emptyDirectory = require('./empty-dir')
 const electronCfg = require('../webpack.config.electron')
 const cfg = require('../webpack.config.production')
 const packager = require('electron-packager')
 const del = require('del')
+const opn = require('opn')
 const exec = require('child_process').exec
 const argv = require('minimist')(process.argv.slice(2))
 const serverlessPkg = require('serverless/package.json')
@@ -54,10 +57,12 @@ if (icon) {
 }
 
 const version = argv.version || argv.v
-
+const releaseDir = path.join(__dirname, '..', 'release')
 if (version) {
   DEFAULT_OPTS.version = version
-  startPack()
+  emptyDirectory(releaseDir, () => {
+    startPack()
+  })
 } else {
   // use the same version as the currently-installed electron-prebuilt
   exec('npm list electron --dev', (err, stdout) => {
@@ -66,8 +71,9 @@ if (version) {
     } else {
       DEFAULT_OPTS.version = stdout.split('electron@')[1].replace(/\s/g, '')
     }
-
-    startPack()
+    emptyDirectory(releaseDir, () => {
+      startPack()
+    })
   })
 }
 
@@ -147,5 +153,8 @@ function log(plat, arch) {
   return (err, filepath) => {
     if (err) return console.error(err)
     console.log(`${plat}-${arch} finished!`)
+    const openPath = path.join(releaseDir, `${plat}-${arch}`, `${appName}-${plat}-${arch}`)
+    opn(openPath)
+    process.exit()
   }
 }

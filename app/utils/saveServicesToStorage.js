@@ -1,1 +1,3 @@
-export default (services) => localStorage.setItem('services', JSON.stringify(services))
+export default (services) => {
+  localStorage.setItem('services', JSON.stringify(services))
+}

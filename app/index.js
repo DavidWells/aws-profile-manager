@@ -6,7 +6,11 @@ import { Router, hashHistory } from 'react-router'
 import routes from './routes'
 import configureStore from './store/configureStore'
 import loadServicesFromStorage from './utils/loadServicesFromStorage'
-import parseAwsCredentials from './utils/parseAwsCredentials'
+import {
+  getAWSCredentials,
+  getAWSProfileData,
+  // deleteAWSProfile
+} from './utils/aws'
 import checkForUpdates from './utils/checkForUpdates'
 import setupErrorTracking from '../desktop/utils/setupErrorTracking'
 import './app.global.css'
@@ -32,10 +36,15 @@ checkForUpdates().then((data) => {
   }
 })
 
+const specificDataByID = getAWSProfileData('serverless_dev')
+console.log('specificDataByID', specificDataByID)
+// const awsCredsFileAfterDelete = deleteAWSProfile('serverless_staging')
+// console.log('awsCredsFileAfterDelete', awsCredsFileAfterDelete)
+
 const safedServices = loadServicesFromStorage()
 const initialState = {
   services: safedServices,
-  credentials: parseAwsCredentials()
+  credentials: getAWSCredentials()
 }
 const store = configureStore(initialState)
 

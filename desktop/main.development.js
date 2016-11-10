@@ -77,6 +77,13 @@ app.on('ready', async () => {
     event.sender.send('debugFromMain', userID)
   })
 
+  ipcMain.on('reset-and-restart-app', (event, arg) => {
+    event.sender.send('debugFromRestartMain', 'it ran')
+    app.relaunch({args: process.argv.slice(1).concat(['--relaunch'])})
+    app.exit(0)
+    event.sender.send('debugFromRestartMain', 'relaunch ran?')
+  })
+
   mainWindow = new BrowserWindow({
     show: false,
     width: 1024,
