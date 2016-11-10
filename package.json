@@ -120,8 +120,8 @@
     "react-select": "^1.0.0-rc.2",
     "redux": "^3.5.2",
     "redux-thunk": "^2.1.0",
-    "serverless": "github:serverless/serverless",
-    "serverless-site": "github:serverless/site",
+    "serverless": "^1.1.0",
+    "serverless-site": "github:serverless/site#ee4fb9d4cd9713c4273dc9281e613b23f450614f",
     "source-map-support": "^0.4.6"
   },
   "devEngines": {
