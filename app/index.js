@@ -6,7 +6,7 @@ import { Router, hashHistory } from 'react-router'
 import routes from './routes'
 import configureStore from './store/configureStore'
 import loadServicesFromStorage from './utils/loadServicesFromStorage'
-import parseAwsCredentials from './utils/parseAwsCredentials'
+import { parseAwsCredentials, updateAwsProfile } from './utils/aws'
 import checkForUpdates from './utils/checkForUpdates'
 import setupErrorTracking from '../desktop/utils/setupErrorTracking'
 import './app.global.css'
@@ -31,6 +31,8 @@ checkForUpdates().then((data) => {
     // do update alert
   }
 })
+
+updateAwsProfile('default')
 
 const safedServices = loadServicesFromStorage()
 const initialState = {
