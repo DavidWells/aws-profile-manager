@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import Modal from 'serverless-site/src/components/Modal'
 import Button from '../Button'
 import Card from '../Card'
-import { getAwsCredentials, updateAwsProfile } from '../../utils/aws'
+import { getAWSCredentials, updateAWSProfile, deleteAWSProfile } from '../../utils/aws'
 import styles from './ManageCredentials.css'
 
 const propTypes = {
@@ -14,12 +14,13 @@ export default class ManageCredentials extends React.Component {
     this.state = {
       showModal: false,
       ModalAction: null,
-      credentials: getAwsCredentials()
+      credentials: getAWSCredentials()
     }
   }
   handleProfileRemoval = () => {
+    const profiles = deleteAWSProfile(this.state.profile)
     setTimeout(() => {
-      this.hideModal()
+      this.setState({ showModal: false, credentials: profiles })
     }, 100)
   }
   handleProfileEdit = () => {
@@ -38,7 +39,6 @@ export default class ManageCredentials extends React.Component {
   showModal = (e) => {
     const action = (e.target.dataset) ? e.target.dataset.action : null
     const profile = (e.target.dataset.profile) ? e.target.dataset.profile : null
-    console.log('this.state.credentials[profile]', this.state.credentials[profile])
     this.setState({
       showModal: true,
       modalAction: action,
@@ -50,17 +50,40 @@ export default class ManageCredentials extends React.Component {
     const profileValues = this.state.credentials[profile]
     if (modalAction === 'add') {
       return (
-        <div className={styles.modalButtons}>
-          <Button type='button' onClick={this.handleServiceAdd}>
-            Add Profile
-          </Button>
-          <Button onClick={this.hideModal}>Cancel</Button>
+        <div>
+          <div className={styles.modalInputs}>
+            <h3>Add AWS Profile</h3>
+            <div>
+              <label htmlFor='Access'>AWS Access Key</label>
+              <input
+                id='Access'
+                type='text'
+                placeholder='Enter Your AWS Access Key ID'
+              />
+            </div>
+            <div>
+              <label htmlFor='Secret'>AWS Secret Access Key</label>
+              <input
+                id='Secret'
+                type='text'
+                placeholder='Enter Your AWS Access Key ID'
+              />
+            </div>
+          </div>
+          <div className={styles.modalButtons}>
+            <Button type='button' onClick={this.handleProfileEdit}>
+              Add Profile
+            </Button>
+            <Button onClick={this.hideModal}>
+              Cancel
+            </Button>
+          </div>
         </div>
       )
     } else if (modalAction === 'delete') {
       return (
         <div>
-          <h3>Are you sure your want to delete the {profile} profile?</h3>
+          <h3>Are you sure your want to delete the "{profile}" profile?</h3>
           <div className={styles.modalButtons}>
             <Button type='button' onClick={this.handleProfileRemoval}>
               Confirm DELETE
@@ -136,9 +159,9 @@ export default class ManageCredentials extends React.Component {
     return (
       <div className={styles.wrapper}>
         <div className={styles.header}>
-          <h2>Credentials</h2>
+          <h2>Manage AWS Profiles</h2>
           <Button data-action='add' onClick={this.showModal}>
-            Add Profile
+            Add New Profile
           </Button>
         </div>
         <div>
