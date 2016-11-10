@@ -28,8 +28,10 @@ export const getAWSCredentialsFile = () => {
 }
 
 /*
-  Returns object of AWS profiles
-*/
+ * Returns object of AWS profiles
+ * This originally has been copied from
+ * https://github.com/aws/aws-sdk-js/blob/master/lib/util.js#L176-L195
+ */
 export const getAWSCredentials = () => {
   const fileContents = getAWSCredentialsFile()
   const profiles = {}
