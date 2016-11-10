@@ -8,7 +8,6 @@ module.exports = [
   require('postcss-simple-vars')({
     variables: function variables() {
       const vars = {...siteVars, ...localVars}
-      console.log('localVars', localVars)
       return vars
     },
     unknown: function unknown(node, name, result) {
