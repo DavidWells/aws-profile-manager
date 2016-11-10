@@ -12,7 +12,11 @@ import ManageCredentials from './components/ManageCredentials'
 // TODO: Ideally we have redux-react-router and setup tracking as a side-effect of a routing action
 const trackPage = ({ location }) => {
   if (process.env.NODE_ENV !== 'development') {
-    window.analytics.page(location.pathname)
+    // eslint-disable-next-line global-require
+    const appVersion = require('electron').remote.getGlobal('sharedObject').appVersion
+    window.analytics.page(location.pathname, {
+      appVersion
+    })
   }
 }
 

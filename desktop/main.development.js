@@ -77,10 +77,10 @@ app.on('ready', async () => {
   // autoUpdater.initialize()
 
   ipcMain.on('ui-ready', (event, arg) => {
-    console.log(arg)  // prints "ping"
-    // const appVersion = app.getVersion()
-    const userID = checkIfExistingUser()
-    event.sender.send('debugFromMain', userID)
+    const userId = checkIfExistingUser()
+    if (userId) {
+      event.sender.send('userId', userId)
+    }
   })
 
   ipcMain.on('reset-and-restart-app', (event, arg) => {

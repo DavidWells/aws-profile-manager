@@ -28,7 +28,7 @@ module.exports = () => {
     // eslint-disable-next-line global-require
     const appVersion = require('electron').remote.getGlobal('sharedObject').appVersion
     // eslint-disable-next-line no-console
-    console.log(`%c APP VERSION: ${appVersion}`, 'color: blue')
+    console.log(`%cAPP VERSION: ${appVersion}`, 'color: blue')
 
     Raven
       .config('https://2961feaae16a4ae18e4a63a5fa54b67a@sentry.io/111960', {
