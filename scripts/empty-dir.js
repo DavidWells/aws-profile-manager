@@ -6,6 +6,10 @@ module.exports = function emptyDirectory(path, callBack) {
       console.log(`emptyDirectory fail! ${path}`)
       callBack(error)
     }
-    callBack && callBack(null)
+
+    if (callBack) {
+      console.log('empty release directory!')
+      callBack(null)
+    }
   })
 }
