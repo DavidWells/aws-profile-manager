@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 import { ipcRenderer, remote } from 'electron'
 import Layout from '../Layout'
 import Button from '../Button'
+import getAppVersion from '../../utils/electron/getAppVersion'
 import styles from './SettingPage.css'
 // import AddCredentials from '../AddCredentials'
 ipcRenderer.on('debugFromRestartMain', (e, arg) => {
@@ -20,8 +21,9 @@ export default class Settings extends React.Component {
     const content = (
       <div className={styles.settings}>
         <h3>Settings</h3>
-        <Button style={{ color: 'black', width: 300 }}>
-          <Link to='/manage-credentials'>Mange AWS profiles</Link>
+        <h5>Current app version: {getAppVersion}</h5>
+        <Button style={{ width: 300 }}>
+          <Link style={{ color: 'black' }} to='/manage-credentials'>Mange AWS profiles</Link>
         </Button>
         <p>More settings are coming soon...</p>
         <p>Drop us a note in the feedback/feature request section if you want something specific =)</p>
