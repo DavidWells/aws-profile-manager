@@ -5,7 +5,6 @@ import Button from '../Button'
 import Card from '../Card'
 import {
   getAWSCredentials,
-  // updateAWSProfile,
   createAWSProfile,
   updateAWSProfile,
   deleteAWSProfile
