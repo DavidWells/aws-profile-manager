@@ -1,6 +1,8 @@
+import omit from 'lodash/omit'
 import {
   ADD_CREDENTIALS,
   ADD_PROFILE_SUCCESS,
+  REMOVE_PROFILE_SUCCESS,
 } from '../constants/actions'
 import { appendAwsCredentials } from '../utils/aws'
 
@@ -14,6 +16,9 @@ export default (state = {}, action) => {
         ...state,
         [action.profile.profile]: action.profile,
       }
+    // TODO implement ADD_PROFILE_ERROR
+    case REMOVE_PROFILE_SUCCESS:
+      return omit(state, action.profileName)
     // TODO implement ADD_PROFILE_ERROR
     default:
       return state

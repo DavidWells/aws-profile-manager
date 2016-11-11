@@ -5,7 +5,6 @@ import Button from '../Button'
 import Card from '../Card'
 import {
   updateAWSProfile,
-  deleteAWSProfile
 } from '../../utils/aws'
 import styles from './ManageCredentials.css'
 
@@ -22,7 +21,7 @@ export default class ManageCredentials extends React.Component {
   }
 
   handleProfileRemoval = () => {
-    const updatedProfiles = deleteAWSProfile(this.state.profile)
+    this.props.removeProfile(this.state.profile)
     setTimeout(() => {
       this.setState({
         showModal: false,
