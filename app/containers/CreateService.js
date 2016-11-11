@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import fixPath from 'fix-path'
 import Select from 'react-select'
 import { map } from 'lodash'
+import path from 'path'
 import Layout from '../components/Layout'
 import Button from '../components/Button'
 import styles from './CreateService.css'
@@ -65,16 +66,19 @@ class CreateService extends Component {
       return false
     }
 
-    const existingDirectories = map(this.props.services, (service) => service.projectPath)
-    if (existingDirectories.includes(this.state.directory)) {
-      // eslint-disable-next-line no-alert
-      alert('The directory you chose is already in your listed services. Please create another one.')
-      return false
-    }
-
     if (!this.state.name) {
       // eslint-disable-next-line no-alert
       alert('Enter a name for your service in step 2.')
+      return false
+    }
+
+    const rootPath = this.state.directory
+    const servicePath = path.join(rootPath, this.state.name)
+
+    const existingDirectories = map(this.props.services, (service) => service.projectPath)
+    if (existingDirectories.includes(servicePath)) {
+      // eslint-disable-next-line no-alert
+      alert('The combination of your directory and name you chose is already in your listed services. Please create another one.')
       return false
     }
 
@@ -99,16 +103,16 @@ class CreateService extends Component {
     if (process.env.NODE_ENV !== 'development') {
       fixPath()
     }
-    const servicePath = this.state.directory
     const args = [
       'create',
       '--template', `${this.state.template}`,
-      '--name', `${this.state.name}`
+      '--name', `${this.state.name}`,
+      '--path', `${this.state.name}`
     ]
     let slsCommand
     try {
       const options = {
-        cwd: servicePath,
+        cwd: rootPath,
         env: process.env
       }
       const serverlessCMDPath = getServerlessCMDPath()
@@ -160,7 +164,9 @@ class CreateService extends Component {
             <Button className={styles.openButton} type='button' onClick={this.selectDirectory}>
               Choose directory
             </Button>
-            {this.state.directory && <span className={styles.installDir}> {this.state.directory}</span>}
+            {this.state.directory &&
+              <span className={styles.installDir}> {path.join(this.state.directory, this.state.name)}</span>
+            }
           </div>
 
         </div>
