@@ -98,8 +98,11 @@ export function getAWSProfileData(profileName) {
     const accessKey = getAccessKey(creds[0])
     const secretKey = getSecretAccessKey(creds[0])
     if (DEBUG) {
+      // eslint-disable-next-line
       console.log('creds match', creds)
+      // eslint-disable-next-line
       console.log('accessKey string', accessKey[0])
+      // eslint-disable-next-line
       console.log('secretKey string', secretKey[0])
     }
 
@@ -127,7 +130,9 @@ export function getAWSProfileData(profileName) {
       return false
     }
     if (DEBUG) {
+      // eslint-disable-next-line
       console.log('accessKey string', accessKey[0])
+      // eslint-disable-next-line
       console.log('secretKey string', secretKey[0])
     }
     // do replacements
