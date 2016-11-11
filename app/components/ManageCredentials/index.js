@@ -23,6 +23,7 @@ export default class ManageCredentials extends React.Component {
       credentials: getAWSCredentials()
     }
   }
+
   handleProfileRemoval = () => {
     const updatedProfiles = deleteAWSProfile(this.state.profile)
     setTimeout(() => {
@@ -32,6 +33,7 @@ export default class ManageCredentials extends React.Component {
       })
     }, 100)
   }
+
   handleProfileEdit = (event, data) => {
     event.preventDefault()
     const updatedProfiles = updateAWSProfile(this.state.profile, {
@@ -45,7 +47,8 @@ export default class ManageCredentials extends React.Component {
       })
     }, 100)
   }
-  handleServiceAdd = (event, data) => {
+
+  handleProfileAdd = (event, data) => {
     event.preventDefault()
     const updatedProfiles = createAWSProfile(data)
     setTimeout(() => {
@@ -55,9 +58,11 @@ export default class ManageCredentials extends React.Component {
       })
     }, 100)
   }
+
   hideModal = () => {
     this.setState({ showModal: false, currentService: null })
   }
+
   setFieldValues = (profileName) => {
     if (!profileName || !this.state.credentials[profileName]) {
       return
@@ -86,7 +91,7 @@ export default class ManageCredentials extends React.Component {
     if (modalAction === 'add') {
       return (
         <div>
-          <Form onSubmit={this.handleServiceAdd}>
+          <Form onSubmit={this.handleProfileAdd}>
             <div className={styles.modalInputs}>
               <h3>Add AWS Profile</h3>
               <div>
