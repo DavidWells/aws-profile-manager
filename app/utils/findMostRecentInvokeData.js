@@ -11,7 +11,7 @@ export default (commands) => {
   if (lastInvoke) {
     const regexp = /--data "(.*)"/
     const match = lastInvoke.output.match(regexp)
-    if (match[1]) {
+    if (match && match[1]) {
       return sanitize(match[1])
     }
   }
