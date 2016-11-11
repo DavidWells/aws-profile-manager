@@ -3,9 +3,6 @@ import Modal from 'serverless-site/src/components/Modal'
 import Form from 'serverless-site/src/components/Form'
 import Button from '../Button'
 import Card from '../Card'
-import {
-  updateAWSProfile,
-} from '../../utils/aws'
 import styles from './ManageCredentials.css'
 
 const propTypes = {
@@ -31,7 +28,7 @@ export default class ManageCredentials extends React.Component {
 
   handleProfileEdit = (event, data) => {
     event.preventDefault()
-    const updatedProfiles = updateAWSProfile(this.state.profile, {
+    this.props.updateProfile(this.state.profile, {
       aws_access_key_id: data.aws_access_key_id,
       aws_secret_access_key: data.aws_secret_access_key
     })
