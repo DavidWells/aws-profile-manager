@@ -4,7 +4,6 @@ import Form from 'serverless-site/src/components/Form'
 import Button from '../Button'
 import Card from '../Card'
 import {
-  getAWSCredentials,
   updateAWSProfile,
   deleteAWSProfile
 } from '../../utils/aws'
@@ -19,7 +18,6 @@ export default class ManageCredentials extends React.Component {
     this.state = {
       showModal: false,
       ModalAction: null,
-      credentials: getAWSCredentials()
     }
   }
 
@@ -28,7 +26,6 @@ export default class ManageCredentials extends React.Component {
     setTimeout(() => {
       this.setState({
         showModal: false,
-        credentials: updatedProfiles
       })
     }, 100)
   }
@@ -42,7 +39,6 @@ export default class ManageCredentials extends React.Component {
     setTimeout(() => {
       this.setState({
         showModal: false,
-        credentials: updatedProfiles
       })
     }, 100)
   }
@@ -62,16 +58,17 @@ export default class ManageCredentials extends React.Component {
   }
 
   setFieldValues = (profileName) => {
-    if (!profileName || !this.state.credentials[profileName]) {
+    if (!profileName || !this.props.credentials[profileName]) {
       return
     }
-    Object.keys(this.state.credentials[profileName]).forEach((item) => {
+    Object.keys(this.props.credentials[profileName]).forEach((item) => {
       const node = document.getElementById(item)
       if (node) {
-        node.value = this.state.credentials[profileName][item]
+        node.value = this.props.credentials[profileName][item]
       }
     })
   }
+
   showModal = (e) => {
     const action = (e.target.dataset) ? e.target.dataset.action : null
     const profileName = (e.target.dataset.profile) ? e.target.dataset.profile : null
@@ -193,7 +190,7 @@ export default class ManageCredentials extends React.Component {
     }
   }
   render() {
-    const { credentials } = this.state
+    const { credentials } = this.props
     let credentialList
     if (credentials) {
       credentialList = Object.keys(credentials).map((profile, i) => {
