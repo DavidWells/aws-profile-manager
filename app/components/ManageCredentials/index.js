@@ -5,7 +5,6 @@ import Button from '../Button'
 import Card from '../Card'
 import {
   getAWSCredentials,
-  createAWSProfile,
   updateAWSProfile,
   deleteAWSProfile
 } from '../../utils/aws'
@@ -50,11 +49,10 @@ export default class ManageCredentials extends React.Component {
 
   handleProfileAdd = (event, data) => {
     event.preventDefault()
-    const updatedProfiles = createAWSProfile(data)
+    this.props.addProfile(data)
     setTimeout(() => {
       this.setState({
         showModal: false,
-        credentials: updatedProfiles
       })
     }, 100)
   }

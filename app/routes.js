@@ -7,7 +7,7 @@ import Service from './containers/Service'
 import FunctionDetail from './containers/FunctionDetail'
 import SettingsPage from './components/SettingsPage'
 import AddCredentials from './components/AddCredentials'
-import ManageCredentials from './components/ManageCredentials'
+import ManageCredentials from './containers/ManageCredentials'
 import appVersion from './utils/electron/getAppVersion'
 
 // TODO: Ideally we have redux-react-router and setup tracking as a side-effect of a routing action
