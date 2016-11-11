@@ -3,13 +3,6 @@ import Modal from 'serverless-site/src/components/Modal'
 import Form from 'serverless-site/src/components/Form'
 import Button from '../Button'
 import Card from '../Card'
-import {
-  getAWSCredentials,
-  // updateAWSProfile,
-  createAWSProfile,
-  updateAWSProfile,
-  deleteAWSProfile
-} from '../../utils/aws'
 import styles from './ManageCredentials.css'
 
 const propTypes = {
@@ -21,55 +14,57 @@ export default class ManageCredentials extends React.Component {
     this.state = {
       showModal: false,
       ModalAction: null,
-      credentials: getAWSCredentials()
     }
   }
+
   handleProfileRemoval = () => {
-    const updatedProfiles = deleteAWSProfile(this.state.profile)
+    this.props.removeProfile(this.state.profile)
     setTimeout(() => {
       this.setState({
         showModal: false,
-        credentials: updatedProfiles
       })
     }, 100)
   }
+
   handleProfileEdit = (event, data) => {
     event.preventDefault()
-    const updatedProfiles = updateAWSProfile(this.state.profile, {
+    this.props.updateProfile(this.state.profile, {
       aws_access_key_id: data.aws_access_key_id,
       aws_secret_access_key: data.aws_secret_access_key
     })
     setTimeout(() => {
       this.setState({
         showModal: false,
-        credentials: updatedProfiles
       })
     }, 100)
   }
-  handleServiceAdd = (event, data) => {
+
+  handleProfileAdd = (event, data) => {
     event.preventDefault()
-    const updatedProfiles = createAWSProfile(data)
+    this.props.addProfile(data)
     setTimeout(() => {
       this.setState({
         showModal: false,
-        credentials: updatedProfiles
       })
     }, 100)
   }
+
   hideModal = () => {
     this.setState({ showModal: false, currentService: null })
   }
+
   setFieldValues = (profileName) => {
-    if (!profileName || !this.state.credentials[profileName]) {
+    if (!profileName || !this.props.credentials[profileName]) {
       return
     }
-    Object.keys(this.state.credentials[profileName]).forEach((item) => {
+    Object.keys(this.props.credentials[profileName]).forEach((item) => {
       const node = document.getElementById(item)
       if (node) {
-        node.value = this.state.credentials[profileName][item]
+        node.value = this.props.credentials[profileName][item]
       }
     })
   }
+
   showModal = (e) => {
     const action = (e.target.dataset) ? e.target.dataset.action : null
     const profileName = (e.target.dataset.profile) ? e.target.dataset.profile : null
@@ -87,7 +82,7 @@ export default class ManageCredentials extends React.Component {
     if (modalAction === 'add') {
       return (
         <div>
-          <Form onSubmit={this.handleServiceAdd}>
+          <Form onSubmit={this.handleProfileAdd}>
             <div className={styles.modalInputs}>
               <h3>Add AWS Profile</h3>
               <div>
@@ -191,7 +186,7 @@ export default class ManageCredentials extends React.Component {
     }
   }
   render() {
-    const { credentials } = this.state
+    const { credentials } = this.props
     let credentialList
     if (credentials) {
       credentialList = Object.keys(credentials).map((profile, i) => {
