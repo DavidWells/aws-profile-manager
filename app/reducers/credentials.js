@@ -14,6 +14,7 @@ export default (state = {}, action) => {
         ...state,
         [action.profile.profile]: action.profile,
       }
+    // TODO implement ADD_PROFILE_ERROR
     default:
       return state
   }
