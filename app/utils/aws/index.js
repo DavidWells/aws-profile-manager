@@ -3,29 +3,6 @@ import fs from 'fs'
 import atomicWriteFileSync from '../electron/atomicWriteFile'
 
 const DEBUG = false
-/*
-  Returns string of path to aws file
-*/
-export const getAWSCredentialsFilePath = () => {
-  const { env } = process
-  const home = env.HOME || env.USERPROFILE || (env.HOMEPATH ? ((env.HOMEDRIVE || 'C:/') + env.HOMEPATH) : null)
-  if (!home) {
-    throw new Error('Can\'t find home directory on your local file system.')
-  }
-  return path.join(home, '.aws', 'credentials')
-}
-
-/*
-  Returns string of contents of aws crendentials file
-*/
-export const getAWSCredentialsFile = () => {
-  const credentialsPath = getAWSCredentialsFilePath()
-  try {
-    return fs.readFileSync(credentialsPath).toString()
-  } catch (err) {
-    return {}
-  }
-}
 
 /*
  * Returns object of AWS profiles
@@ -51,6 +28,52 @@ export const getAWSCredentials = () => {
     }
   })
   return profiles
+}
+
+export function createAWSProfile({ profile, aws_access_key_id, aws_secret_access_key }) {
+  const profileData = getAWSProfileData(profile)
+  if (profileData) {
+    // Profile Already Exists! Return error
+    return false
+  }
+  if (profile && aws_access_key_id && aws_secret_access_key) { // eslint-disable-line
+    return appendAwsCredentials({
+      profile,
+      awsAccessKeyId: aws_access_key_id,
+      awsSecretAccessKey: aws_secret_access_key
+    })
+  }
+  // missing values return error
+  return false
+}
+
+export function updateAWSProfile(profileName, newValues) {
+  const filePath = getAWSCredentialsFilePath()
+  let creds = getAWSCredentialsFile()
+  const currentCredsData = getAWSProfileData(profileName)
+  if (currentCredsData) {
+    const {
+      accessKey,
+      accessKeyRawText,
+      secretAccessKey,
+      secretAccessKeyRawText
+    } = currentCredsData
+    const key = newValues.aws_access_key_id
+    const secret = newValues.aws_secret_access_key
+
+    // if key is new, replace the old one
+    if (key && key !== accessKey) {
+      creds = creds.replace(accessKeyRawText, `aws_access_key_id=${key}`)
+    }
+    // if secret is new, replace the old one
+    if (secret && secret !== secretAccessKey) {
+      creds = creds.replace(secretAccessKeyRawText, `aws_secret_access_key=${secret}`)
+    }
+    atomicWriteFileSync(filePath, creds)
+    return getAWSCredentials()
+  }
+  // no profile matches return false
+  return false
 }
 
 export function deleteAWSProfile(profileName) {
@@ -130,6 +153,30 @@ export const appendAwsCredentials = ({ profile, awsAccessKeyId, awsSecretAccessK
     ].join('')
     fs.appendFileSync(credentialsPath, content)
     return getAWSCredentials()
+  } catch (err) {
+    return {}
+  }
+}
+
+/*
+  Returns string of path to aws file
+*/
+export const getAWSCredentialsFilePath = () => {
+  const { env } = process
+  const home = env.HOME || env.USERPROFILE || (env.HOMEPATH ? ((env.HOMEDRIVE || 'C:/') + env.HOMEPATH) : null)
+  if (!home) {
+    throw new Error('Can\'t find home directory on your local file system.')
+  }
+  return path.join(home, '.aws', 'credentials')
+}
+
+/*
+  Returns string of contents of aws crendentials file
+*/
+export const getAWSCredentialsFile = () => {
+  const credentialsPath = getAWSCredentialsFilePath()
+  try {
+    return fs.readFileSync(credentialsPath).toString()
   } catch (err) {
     return {}
   }
