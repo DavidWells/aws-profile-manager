@@ -164,7 +164,9 @@ class CreateService extends Component {
             <Button className={styles.openButton} type='button' onClick={this.selectDirectory}>
               Choose directory
             </Button>
-            {this.state.directory && <span className={styles.installDir}> {this.state.directory}</span>}
+            {this.state.directory &&
+              <span className={styles.installDir}> {path.join(this.state.directory, this.state.name)}</span>
+            }
           </div>
 
         </div>
