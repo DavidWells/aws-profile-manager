@@ -21,13 +21,13 @@ What the desktop app is **NOT**
 
 ## Platforms supported
 - [x] MacOSX
-- [] Windows
-- [] Linux
+- [ ] Windows
+- [ ] Linux
 
 ## Features
 - [x] Streamline provider setup
 - [x] View + manage + create services on local machine
 - [x] Ability to run CLI commands from UI
-- [] View + manage + interact with service functions/events on local machine
-- [] Easily find and install serverless services and plugins
-- [] Provider account management
+- [ ] View + manage + interact with service functions/events on local machine
+- [ ] Easily find and install serverless services and plugins
+- [ ] Provider account management
