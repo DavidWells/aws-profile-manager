@@ -7,9 +7,11 @@
 
 /* eslint-disable no-case-declarations, no-redeclare */
 import omit from 'lodash/omit'
+import objectPath from 'object-path' // TODO use immutable version
 import {
   ADD_SERVICE,
   REMOVE_SERVICE,
+  UPDATE_SERVICE,
   SET_STAGE_FOR_SERVICE,
   SET_REGION_FOR_SERVICE,
   SET_PROFILE_FOR_SERVICE,
@@ -71,6 +73,36 @@ export default (state = {}, action) => {
       // Note: this is a side-effect and should be handled with redux-sage or similar
       saveServicesToStorage(newState3)
       return newState3
+    case UPDATE_SERVICE:
+      console.log('REDUCER RAN UPDATE SERVICE')
+      console.log('action.service', action.service)
+      console.log('action.valuePath', action.valuePath)
+      console.log('action.newValue', action.newValue)
+      const objectpath = action.valuePath.replace('service.config.', '')
+      console.log('objectpath', objectpath)
+      const newConfig = { ...{}, ...action.service.config }
+      console.log('newConfig', newConfig)
+      if (newConfig[objectpath]) {
+        console.log('path found')
+      } else {
+        const lookup = objectpath.split('.')
+        console.log('lookup', lookup)
+        console.log('path doesnt exist')
+      }
+      objectPath.set(newConfig, objectpath, action.newValue)
+      // console.log('newConfig mutate', newConfig)
+      // const newStateUpdateService = objectPath.set(state, "a.h", "m");
+      const newStateUpdateService = {
+        ...state,
+        [action.service.id]: {
+          ...state[action.service.id],
+          config: newConfig
+        }
+      }
+      // console.log('newStateUpdateService', newStateUpdateService)
+      // Note: this is a side-effect and should be handled with redux-sage or similar
+      saveServicesToStorage(newStateUpdateService)
+      return newStateUpdateService
     case SET_REGION_FOR_SERVICE:
       const newState4 = {
         ...state,

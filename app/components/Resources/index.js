@@ -44,7 +44,7 @@ const renderItems = (resourceProps) => {
 const Resources = ({ resources }) => {
   let resourcesItems = (
     <div>
-      No resources defined. Open your serverless.yml file to add some
+      No resources defined. Open your serverless.yml file to add some!
     </div>
   )
   if (resources) {
