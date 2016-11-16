@@ -15,6 +15,49 @@
   </head>
   <body>
     <div id="root"></div>
+    <div class='app-reset' id="oh-snap" style='display:none; align-items: center;
+    justify-content: center; margin-top:40px; width:100%;'>
+      <div style='text-align: center;'>
+        <div>Ooops something when wrong... 🙈</div>
+        <button style='font-size:28px; margin-top: 45px;' id="reset">
+          Click to reset application
+        </button>
+        <div style='font-size:22px; margin-top: 55px;'>
+          Tweet 🔥 @DavidWells & report this on <b>https://github.com/serverless/dashboard/issues</b>
+        </div>
+        <div style='font-size:18px; margin-top: 23px;'>
+          Open up <b>view > toggle dev tools</b> to see error messages
+        </div>
+      </div>
+    </div>
+    <script>
+     /** Handle fatal crashes **/
+     var interval = setInterval(function() {
+       var reset = window.localStorage.getItem('reset')
+       var app = document.getElementById('root')
+       var errorMessage = document.getElementById('oh-snap')
+       if(app && app.innerHTML === "") {
+         errorMessage.style.display = 'flex'
+         if (reset) {
+           errorMessage.innerHTML = '<div><h1>Alrighty! Application Reset 🎉</h1><h3>Please close and restart the application</h2><p>Sorry for the troubles</p><p>If you are still experiencing issues. Report them on <b>https://github.com/serverless/dashboard/issues</b></p></div>'
+           window.localStorage.removeItem('reset')
+         }
+         // App crashed.
+         // send error report
+         setTimeout(function() {
+           if (window.location.hash !== '') {
+              window.location.hash = ''
+              window.location.reload()
+           }
+         }, 5000);
+       }
+     }, 1500)
+     document.getElementById('reset').onclick = function() {
+       window.localStorage.removeItem('services')
+       window.localStorage.setItem('reset', 'true')
+       window.location.reload()
+     }
+    </script>
     <script>start = performance.now();</script>
     <script type="text/javascript">
       !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="4.0.0";
