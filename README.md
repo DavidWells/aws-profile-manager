@@ -1,3 +1,4 @@
+<img align="right" width="350" height="255" src="https://s3-us-west-2.amazonaws.com/assets.dashboard/gifs/DashGif.gif">
 # Serverless Dashboard
 
 This project is about providing a user-friendly layer on top of the serverless CLI.

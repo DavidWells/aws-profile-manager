@@ -41,7 +41,10 @@ export default class ServicesList extends React.Component {
     const { services } = this.props
     let serviceList = Object.keys(this.props.services)
       .filter((service) => {
-        return services[service].config.service.toLowerCase().indexOf(text) > -1 || services[service].config.service.indexOf(text) > -1
+        if (services[service] && services[service].config && services[service].config.service) {
+          return services[service].config.service.toLowerCase().indexOf(text) > -1 || services[service].config.service.indexOf(text) > -1
+        }
+        return true
       }).map((service, i) => {
         return (
           <ServiceCard

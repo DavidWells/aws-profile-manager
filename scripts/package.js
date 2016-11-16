@@ -61,7 +61,9 @@ const releaseDir = path.join(__dirname, '..', 'release')
 if (version) {
   DEFAULT_OPTS.version = version
   emptyDirectory(releaseDir, () => {
-    startPack()
+    emptyDirectory(releaseDir, () => {
+      startPack()
+    })
   })
 } else {
   // use the same version as the currently-installed electron-prebuilt
@@ -72,7 +74,9 @@ if (version) {
       DEFAULT_OPTS.version = stdout.split('electron@')[1].replace(/\s/g, '')
     }
     emptyDirectory(releaseDir, () => {
-      startPack()
+      emptyDirectory(releaseDir, () => {
+        startPack()
+      })
     })
   })
 }
