@@ -17,6 +17,15 @@
     z-index: 1;
     left: 0;
   }
+  .clear {
+    color: #fff;
+    position: absolute;
+    right: 5px;
+    top: 2px;
+    z-index: 9;
+    cursor: pointer;
+    font-size: 10px;
+  }
   .text {
     position: relative;
     z-index: 2;

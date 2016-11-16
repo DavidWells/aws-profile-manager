@@ -13,7 +13,12 @@ const ConsoleView = ({ service, clearConsoleForService }) => {
   }
   return (
     <div className={styles.console}>
-      <Button onClick={() => { clearConsoleForService(service.id) }}>Clear Console</Button>
+      <span
+        className={styles.clear}
+        onClick={() => { clearConsoleForService(service.id) }}
+      >
+        Clear Console
+      </span>
       <div className={styles.bg} />
       <div className={styles.text}>
         {!service.lastCommandCleared && text}
