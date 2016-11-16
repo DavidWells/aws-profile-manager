@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import Editable from 'react-contenteditable'
+import Editable from './Editable'
 import styles from './ContentEditable.css'
 
 const propTypes = {
@@ -35,12 +35,17 @@ export default class ContentEditable extends React.Component {
       disabled: true
     }, () => {
       this.hasFocused = false // reset single click functionality
+      if (this.props.onBlur) {
+        this.props.onBlur()
+      }
     })
   }
   render() {
-    const { onChange, children } = this.props
+    const { onChange, children, editKey, tagName } = this.props
     return (
       <Editable
+        tagName={tagName}
+        data-key={editKey}
         className={styles.editable}
         onClick={this.handleClick}
         onBlur={this.handleClickOutside}
