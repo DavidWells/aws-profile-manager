@@ -72,9 +72,7 @@ app.on('ready', async () => {
 
   ipcMain.on('ui-ready', (event, arg) => {
     const userId = checkIfExistingUser()
-    if (userId) {
-      event.sender.send('userId', userId)
-    }
+    event.sender.send('userId', userId)
   })
 
   ipcMain.on('reset-and-restart-app', (event, arg) => {
