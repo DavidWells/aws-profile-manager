@@ -18,13 +18,16 @@
     left: 0;
   }
   .clear {
-    color: #fff;
+    color: rgba(255, 255, 255, 0.73);
     position: absolute;
     right: 5px;
     top: 2px;
     z-index: 9;
     cursor: pointer;
     font-size: 10px;
+    &:hover {
+      color:#fff;
+    }
   }
   .text {
     position: relative;

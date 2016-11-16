@@ -6,7 +6,7 @@ import Select, { Creatable } from 'react-select'
 import { shell } from 'electron'
 import Layout from '../Layout'
 import Button from '../Button'
-import ContentEditable from '../ContentEditable'
+import ServiceValue from '../../containers/ServiceValue'
 import lambdaRegions from '../../constants/lambdaRegions'
 import stages from '../../constants/stageDefaults'
 import Resources from '../Resources'
@@ -53,6 +53,11 @@ export default class ServiceView extends Component {
       functionName: functionName // eslint-disable-line
     })
   }
+  handleDataChange = (e, value) => {
+    console.log(e)
+    console.log(e.target)
+    console.log('updated this', e.target.dataset.key +'=' + e.target.value)
+  }
   render() {
     const { props } = this
     const { service, credentials } = props
@@ -69,8 +74,16 @@ export default class ServiceView extends Component {
     }
     if (service.error && service.error.type === PARSING_YAML_FAILED) {
       return (
-        <div>
-          Couldn't parse the serverless.yaml file.
+        <div className={styles.error}>
+          Couldn't parse the serverless.yaml file. Please verify the yaml syntax is correct
+          <pre>
+            {service.error.message}
+          </pre>
+          <div>
+            <button onClick={() => shell.openItem(service.projectPath)}>
+              open directory
+            </button>
+          </div>
         </div>
       )
     }
@@ -84,11 +97,11 @@ export default class ServiceView extends Component {
         <div className={styles.header}>
           <div className={styles.headerLeft}>
             <h2 className={styles.serviceName}>
-              <ContentEditable
-                onChange={(e, value) => console.log(e.target.value)} // handle innerHTML change
-              >
-                {service.config.service}
-              </ContentEditable>
+              <ServiceValue
+                service={service}
+                value={service.config.service}
+                valueKey={'service.config.service'}
+              />
             </h2>
             <div className={styles.currentServiceContext}>
               <div className={styles.currentStage}>

@@ -16,6 +16,11 @@
     width: 160px;
   }
 }
+.error {
+  padding: 30px;
+  font-size: 30px;
+  color: $red;
+}
 .headerLeft {
 
 }

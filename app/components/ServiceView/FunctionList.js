@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import { map } from 'lodash'
 import { shell } from 'electron'
+import ServiceValue from '../../containers/ServiceValue'
 import Card from '../Card'
 import Button from '../Button'
 import styles from './FunctionList.css'
@@ -29,18 +30,40 @@ const FunctionList = (props) => {
           console.log('event[eventType]', event[eventType])
           console.log('typeof event[eventType]', typeof event[eventType])
           let eventValues = event[eventType]
+          var fromVar = event[`${eventType}_variable`]
+          console.log('fromVar', fromVar)
           if (event[eventType] && typeof event[eventType] === 'object') {
             eventValues = Object.keys(event[eventType]).map((property, n) => {
               const value = event[eventType][property]
-
+              const editPathTest = `functions.${functionName}.events[${i}].${eventType}.${property}`
+              const editPath = `functions.${functionName}.events.${eventType}.${property}`
+              console.log('property', property)
+              console.log('TTT', editPath)
+              console.log('LOOOOOOK', editPathTest)
+              console.log('found in master', window.CURRENT_AST[editPath])
+              const isFromVariable = event[eventType][`${property}_variable`]
               if (typeof value !== 'object') {
                 const displayVal = (typeof value === 'boolean') ? JSON.stringify(value) : value
+                let renderValue = (
+                  <ServiceValue
+                    service={service}
+                    valueKey={editPath}
+                    value={displayVal}
+                  />
+                )
+                if (isFromVariable) {
+                  renderValue = (
+                    <span>
+                      {isFromVariable}
+                    </span>
+                  )
+                }
                 return (
                   <li key={n}>
                     <span className={styles.property}>
                       {property}:
                     </span>
-                    <span>{displayVal}</span>
+                    {renderValue}
                   </li>
                 )
               }
@@ -66,16 +89,17 @@ const FunctionList = (props) => {
         )
       })
     }
-    /*
-    <Link to={`/service/${service.id}/function/${functionName}`}>
-      <Button>View Function</Button>
-    </Link>
-     */
     return (
       <Card key={functionName} className={styles.functionCard}>
-        <div>
+        <div className={styles.functionInfo}>
           <div className={styles.functionName}>
-            <span to={`/service/${service.id}/function/${functionName}`}>{functionName}</span>
+            <span to={`/service/${service.id}/function/${functionName}`}>
+              <ServiceValue
+                service={service}
+                valueKey={`functions.${functionName}`}
+                value={functionName}
+              />
+            </span>
           </div>
 
           <div>{functionEvents}</div>
@@ -124,11 +148,13 @@ FunctionList.propTypes = {
 export default FunctionList
 
 const getLanguage = (service) => {
-  if (!service.config.provider) {
+  if (!service.config || !service.config.provider) {
     return 'error'
   }
-  const { config } = service
-  const { provider } = config
+  const provider = service.config.provider
+  if (!provider.runtime) {
+    return 'NA'
+  }
   if (provider.runtime.match(/node/)) {
     return 'js'
   }
