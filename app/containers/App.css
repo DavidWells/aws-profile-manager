@@ -45,6 +45,12 @@ $NavBackground: #FFD426;
     font-weight: bold;
     margin-right: 10px;
   }
+  .update {
+    flex-grow: 1;
+    text-align: right;
+    margin-right: 20px;
+    cursor: pointer;
+  }
 }
 .rightNav {
   display: flex;
