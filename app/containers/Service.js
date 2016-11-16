@@ -4,6 +4,7 @@ import setProfileForService from '../actions/setProfileForService'
 import setRegionForService from '../actions/setRegionForService'
 import setStageForService from '../actions/setStageForService'
 import runServiceDeploy from '../actions/runServiceDeploy'
+import runServiceRemove from '../actions/runServiceRemove'
 import runFunctionDeploy from '../actions/runFunctionDeploy'
 import clearConsoleForService from '../actions/clearConsoleForService'
 import runInvoke from '../actions/runInvoke'
@@ -42,6 +43,7 @@ export default connect(mapStateToProps, {
   setRegionForService,
   setStageForService,
   runServiceDeploy,
+  runServiceRemove,
   runFunctionDeploy,
   runLogs,
   runInvoke,

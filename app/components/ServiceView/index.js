@@ -143,6 +143,14 @@ export default class ServiceView extends Component {
             >
               Deploy Service
             </Button>
+
+            <Button
+              type='button'
+              onClick={() => { props.runServiceRemove(service.id) }}
+              disabled={!service.stage || !service.region}
+            >
+              Remove Service
+            </Button>
           </div>
         </div>
         <div className={styles.contents}>

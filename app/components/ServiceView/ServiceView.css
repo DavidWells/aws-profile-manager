@@ -29,6 +29,14 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  flex-direction: column;
+  button:first-of-type {
+    margin-bottom: 10px;
+  }
+  button:last-of-type {
+    color: $red;
+    border-color: $red;
+  }
 }
 .serviceName {
   font-size: 20px;
