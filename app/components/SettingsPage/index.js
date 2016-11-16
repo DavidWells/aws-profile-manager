@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router'
-import { ipcRenderer, remote } from 'electron'
+import { ipcRenderer, remote, shell } from 'electron'
 import Layout from '../Layout'
 import Button from '../Button'
 import getAppVersion from '../../utils/electron/getAppVersion'
@@ -30,6 +30,8 @@ export default class Settings extends React.Component {
         <hr />
         <div className={styles.reset} >
           <h3>Troubleshooting</h3>
+          <p>The dashboard is in an alpha state.</p>
+          <p>Please report any issues you see on the github repo <b><a onClick={(e) => { shell.openExternal('https://github.com/serverless/dashboard/issues') }}> https://github.com/serverless/dashboard/issues</a></b></p>
           <h4>Reset App to fresh state</h4>
           <p><b>Warning:</b> this will remove all services from the service list page</p>
           <p>This will <b>not</b> remove files/folder from your computer </p>
