@@ -12,6 +12,7 @@ import addService from '../actions/addService'
 import walkDirSync from '../utils/walkDirSync'
 import parseServiceYaml from '../utils/parseServiceYaml'
 import getServerlessCMDPath from '../utils/serverless/getServerlessCMDPath'
+import slugify from '../utils/slugify'
 import spawn from '../utils/child_process/betterSpawn'
 import validServiceName from '../utils/validServiceName'
 
@@ -137,7 +138,7 @@ class CreateService extends Component {
       }
       const filePaths = walkDirSync(servicePath)
       parseServiceYaml(servicePath).then((data) => {
-        const id = servicePath.replace(/\//g, '_')
+        const id = slugify(servicePath)
         this.props.addService(
           {
             id,
@@ -172,6 +173,7 @@ class CreateService extends Component {
         </div>
         <div className={styles.field}>
           <label htmlFor='name'>2. Choose a service name</label>
+          <p>This will be the name of your service and the folder name. These can be changed later</p>
           <input
             id='name'
             type='text'
@@ -191,6 +193,7 @@ class CreateService extends Component {
         </div>
         <div className={styles.createButton}>
           <Button
+            style={{padding: '10px 20px', fontSize: '22px' }}
             type='button'
             onClick={this.createService}
           >
