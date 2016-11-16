@@ -18,7 +18,7 @@
     <div class='app-reset' id="oh-snap" style='display:none; align-items: center;
     justify-content: center; margin-top:40px; width:100%;'>
       <div style='text-align: center;'>
-        <div>Ooops something when wrong... 🙈</div>
+        <div id="dev">Ooops something when wrong... 🙈</div>
         <button style='font-size:28px; margin-top: 45px;' id="reset">
           Click to reset application
         </button>
@@ -31,6 +31,10 @@
       </div>
     </div>
     <script>
+      if (process.env.NODE_ENV === 'development') {
+         var devMessage = document.getElementById('dev')
+         devMessage.innerHTML = '<span>You are in dev mode. Make sure to start up webpack by runnning <pre>npm run dev</pre><br/><span>If all else fails, reset app</span>'
+      }
      /** Handle fatal crashes **/
      var interval = setInterval(function() {
        var reset = window.localStorage.getItem('reset')
