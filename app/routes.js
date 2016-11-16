@@ -4,13 +4,13 @@ import App from './containers/App'
 import Dashboard from './containers/Dashboard'
 import CreateService from './containers/CreateService'
 import Service from './containers/Service'
-import FunctionDetail from './containers/FunctionDetail'
 import SettingsPage from './components/SettingsPage'
 import AddCredentials from './components/AddCredentials'
 import ManageCredentials from './containers/ManageCredentials'
 import appVersion from './utils/electron/getAppVersion'
+// import FunctionDetail from './containers/FunctionDetail'
 
-// TODO: Ideally we have redux-react-router and setup tracking as a side-effect of a routing action
+// TODO: have redux-react-router and setup tracking as a side-effect of a routing action
 const trackPage = ({ location }) => {
   if (process.env.NODE_ENV !== 'development') {
     window.analytics.page(location.pathname, {
@@ -25,9 +25,12 @@ export default (
     <Route path='/settings' component={SettingsPage} onEnter={trackPage} />
     <Route path='/service/create' component={CreateService} onEnter={trackPage} />
     <Route path='/service/:serviceId' component={Service} onEnter={trackPage} />
-    <Route path='/service/:serviceId/function/:functionName' component={FunctionDetail} onEnter={trackPage} />
     <Route path='/add-credentials' component={AddCredentials} onEnter={trackPage} />
     <Route path='/manage-credentials' component={ManageCredentials} onEnter={trackPage} />
     <Route path='*' component={SettingsPage} onEnter={trackPage} />
   </Route>
 )
+/*
+Single function view coming soon
+<Route path='/service/:serviceId/function/:functionName' component={FunctionDetail} onEnter={trackPage} />
+*/
