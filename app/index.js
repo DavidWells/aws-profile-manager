@@ -6,11 +6,7 @@ import { Router, hashHistory } from 'react-router'
 import routes from './routes'
 import configureStore from './store/configureStore'
 import loadServicesFromStorage from './utils/loadServicesFromStorage'
-import {
-  getAWSCredentials,
-  getAWSProfileData,
-  // deleteAWSProfile
-} from './utils/aws'
+import { getAWSCredentials, getAWSProfileData } from './utils/aws'
 import checkForUpdates from './utils/checkForUpdates'
 import setupErrorTracking from '../desktop/utils/setupErrorTracking'
 import './app.global.css'
@@ -26,7 +22,7 @@ webFrame.setZoomLevelLimits(1, 1)
 ipcRenderer.send('ui-ready', 'ping')
 ipcRenderer.on('userId', (evt, userId) => {
   // eslint-disable-next-line no-console
-  console.log(`%cUserId: ${userId}`, 'color: blue')
+  // console.log(`%cUserId: ${userId}`, 'color: blue')
   if (process.env.NODE_ENV !== 'development') {
     window.analytics.identify(userId)
   }
