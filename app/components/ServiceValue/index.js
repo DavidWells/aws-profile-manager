@@ -57,16 +57,22 @@ export default class ServiceValue extends React.Component {
         <span>{value} (i) {isFromVariable}</span>
       )
     }
+    /*
+      Disable editable until yaml editing finished
+      <span ref='test'>
+      <ContentEditable
+        tagName='span'
+        editKey={valueKey}
+        onChange={this.handleDataChange} // handle innerHTML change
+        onBlur={this.handleBlur} // handle innerHTML change
+      >
+        {value}
+      </ContentEditable>
+      </span>
+     */
     return (
       <span ref='test'>
-        <ContentEditable
-          tagName='span'
-          editKey={valueKey}
-          onChange={this.handleDataChange} // handle innerHTML change
-          onBlur={this.handleBlur} // handle innerHTML change
-        >
-          {value}
-        </ContentEditable>
+        {value}
       </span>
     )
   }
