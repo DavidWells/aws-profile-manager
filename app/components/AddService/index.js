@@ -1,9 +1,12 @@
 import React, { Component, PropTypes } from 'react'
 import Button from '../Button'
-// import { uniqueId } from 'lodash'
 import walkDirSync from '../../utils/walkDirSync'
 import selectDirectory from '../../utils/selectDirectory'
+import slugify from '../../utils/slugify'
+import getServerlessYamlFilePath from '../../utils/getServerlessYamlFilePath'
 import parseServiceYaml from '../../utils/parseServiceYaml'
+import mergeYamlObjects from '../../utils/yaml/mergeYamlObjects'
+import parseYaml from '../../utils/parseYaml'
 import styles from './AddService.css'
 
 class AddScreen extends Component {
@@ -20,13 +23,17 @@ class AddScreen extends Component {
     if (directories && directories.length) {
       const servicePath = directories[0]
       const filePaths = walkDirSync(servicePath)
+      const yamlPath = getServerlessYamlFilePath(servicePath)
+      const rawYAML = parseYaml(yamlPath)
       parseServiceYaml(servicePath).then((data) => {
-        const id = servicePath.replace(/\//g, '_')
+        const id = slugify(servicePath)
+        // traverse both yaml objects and add variable sources
+        const merge = mergeYamlObjects(rawYAML, data)
         this.props.addService(
           {
             id,
             filePaths,
-            config: data,
+            config: merge,
             projectPath: servicePath,
           },
           this.props.credentials
