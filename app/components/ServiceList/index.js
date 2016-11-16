@@ -5,6 +5,7 @@ import Modal from 'serverless-site/src/components/Modal'
 import Layout from '../Layout'
 import Card from '../Card'
 import Button from '../Button'
+import ServiceCard from './ServiceCard'
 import AddService from '../AddService'
 import styles from './ServiceList.css'
 import {
@@ -18,6 +19,7 @@ export default class ServicesList extends React.Component {
   constructor(props, context) {
     super(props, context)
     this.state = {
+      filterText: '',
       showModal: false,
     }
   }
@@ -30,6 +32,38 @@ export default class ServicesList extends React.Component {
   hideModal = () => {
     this.setState({ showModal: false, currentService: null })
   }
+  handleFilterInput = (e) => {
+    this.setState({
+      filterText: e.target.value
+    })
+  }
+  getServices = (text) => {
+    const { services } = this.props
+    let serviceList = Object.keys(this.props.services)
+      .filter((service) => {
+        return services[service].config.service.toLowerCase().indexOf(text) > -1 || services[service].config.service.indexOf(text) > -1
+      }).map((service) => {
+        return (
+          <ServiceCard
+            service={services[service]}
+            showDeleteModal={this.showDeleteModal}
+          />
+        )
+      })
+    if (!serviceList.length) {
+      serviceList = (
+        <div className={styles.notFound}>
+          <h2>
+            Service "{text}" not found 🙈
+          </h2>
+          <div>
+            Clear your search and try again
+          </div>
+        </div>
+      )
+    }
+    return serviceList
+  }
   showDeleteModal = (id) => {
     this.setState({
       showModal: !this.state.showModal,
@@ -38,6 +72,7 @@ export default class ServicesList extends React.Component {
   }
   render() {
     const props = this.props
+    const renderServices = this.getServices(this.state.filterText)
     const content = (
       <div className={styles.serviceListPageWrapper}>
         <Modal
@@ -53,74 +88,20 @@ export default class ServicesList extends React.Component {
             <Button onClick={this.hideModal}>Cancel</Button>
           </div>
         </Modal>
-        <h1>Serverless Services</h1>
-        <AddService
-          addService={props.addService}
-          credentials={props.credentials}
-          services={props.services}
-          history={props.history}
-        />
+        <div className={styles.pageTitle}>
+          <h1>Serverless Services</h1>
+        </div>
+        <div className={styles.actionBar}>
+          <input onChange={this.handleFilterInput} placeholder='Filter Services' />
+          <AddService
+            addService={props.addService}
+            credentials={props.credentials}
+            services={props.services}
+            history={props.history}
+          />
+        </div>
         <div className={styles.serviceList}>
-          {map(props.services, (service) => (
-            <Card className={styles.service} key={service.id}>
-              <div className={styles.info}>
-                { service.error && service.error.type === PATH_NOT_FOUND &&
-                  <div>
-                    Couldn't find the service path anymore. In case you moved it please remove
-                    and re-add this service again.
-                  </div>
-                }
-                { service.error && service.error.type === PARSING_YAML_FAILED &&
-                  <div>
-                    Couldn't parse the serverless.yaml file.
-                  </div>
-                }
-                <Link
-                  className={styles.serviceLink}
-                  to={`/service/${service.id}`}
-                >
-                  <span>{service.config.service}</span>
-                  <i className='fa fa-external-link' aria-hidden='true' />
-                </Link>
-                <div className={styles.serviceMetaWrapper}>
-                  <div className={styles.serviceMeta}>
-                    <span className={styles.serviceMetaProperty}>
-                      Path:
-                    </span>
-                    <span className={styles.serviceMetaValue}>
-                      {service.projectPath}
-                    </span>
-                  </div>
-                  <div className={styles.serviceMeta}>
-                    <span className={styles.serviceMetaProperty}>
-                      Provider:
-                    </span>
-                    <span className={styles.serviceMetaValue}>
-                      {service.config.provider.name}
-                    </span>
-                  </div>
-                  <div className={styles.serviceMeta}>
-                    <span className={styles.serviceMetaProperty}>
-                      Runtime:
-                    </span>
-                    <span className={styles.serviceMetaValue}>
-                      {service.config.provider.runtime}
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className={styles.actions}>
-                { service.error
-                  ? <Button disabled>View Service</Button>
-                  : <Link to={`/service/${service.id}`}><Button>View Service</Button></Link>
-                }
-                <Button disabled={!!service.error} onClick={() => shell.openItem(service.projectPath)}>Open directory</Button>
-                <Button type='button' onClick={() => this.showDeleteModal(service.id)}>
-                  Delete
-                </Button>
-              </div>
-            </Card>
-          ))}
+          {renderServices}
         </div>
       </div>
     )
