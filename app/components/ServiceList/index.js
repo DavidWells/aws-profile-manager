@@ -42,9 +42,10 @@ export default class ServicesList extends React.Component {
     let serviceList = Object.keys(this.props.services)
       .filter((service) => {
         return services[service].config.service.toLowerCase().indexOf(text) > -1 || services[service].config.service.indexOf(text) > -1
-      }).map((service) => {
+      }).map((service, i) => {
         return (
           <ServiceCard
+            key={i}
             service={services[service]}
             showDeleteModal={this.showDeleteModal}
           />
