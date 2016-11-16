@@ -11,6 +11,12 @@ import { getAWSCredentials } from './utils/aws'
 import setupErrorTracking from '../desktop/utils/setupErrorTracking'
 import './app.global.css'
 
+// temporary clear storage for old users
+if (!window.localStorage.getItem('resetApplication')) {
+  window.localStorage.removeItem('services')
+  window.localStorage.setItem('resetApplication', 'true')
+}
+
 if (process.env.NODE_ENV !== 'development') {
   setupErrorTracking()
 }
