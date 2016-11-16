@@ -2,7 +2,7 @@
   "name": "serverless-dashboard",
   "productName": "Serverless",
   "protocol": "serverless-dash",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Serverless Desktop app",
   "main": "desktop/main.js",
   "scripts": {
@@ -109,11 +109,12 @@
     "fs-extra": "^1.0.0",
     "js-yaml": "^3.6.1",
     "lodash": "^4.16.4",
+    "object-path": "^0.11.2",
     "postcss": "^5.1.2",
     "raven": "^0.12.1",
     "raven-js": "^3.8.0",
+    "rc-trigger": "^1.7.3",
     "react": "^15.3.2",
-    "react-contenteditable": "^2.0.1",
     "react-dom": "^15.3.2",
     "react-redux": "^4.4.5",
     "react-router": "^2.8.0",
@@ -122,7 +123,8 @@
     "redux-thunk": "^2.1.0",
     "serverless": "^1.1.0",
     "serverless-site": "github:serverless/site#ee4fb9d4cd9713c4273dc9281e613b23f450614f",
-    "source-map-support": "^0.4.6"
+    "source-map-support": "^0.4.6",
+    "yaml-ast-parser": "0.0.30"
   },
   "devEngines": {
     "node": "4.x || 5.x || 6.x",
