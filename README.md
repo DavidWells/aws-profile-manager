@@ -1,15 +1,18 @@
-# Serverless Desktop
+# Serverless Dashboard
 
 This project is about providing a user-friendly layer on top of the serverless CLI.
-
-What the desktop app is **NOT**
-
-- A replacement for the serverless CLI
-- The serverless platform
 
 See the goals of the project [here](./docs/README.md)
 
 ## [Download App](http://bit.ly/serverless-dashboard)
+
+## Features
+
+- [x] Run serverless commands from GUI
+- [x] Invoke functions via GUI
+- [x] Setup & Manage AWS profiles
+- [ ] Point and click editing
+- [Add yours here!](https://github.com/serverless/dashboard/issues)
 
 ## Install and run locally
 
@@ -34,11 +37,11 @@ cd dashboard && npm install
 Run these two commands __simultaneously__ in different console tabs.
 
 ```bash
-npm run hot-server
-npm run start-hot
+npm start
+npm run dev
 ```
 
-Run `npm run hot-server` and `npm run start-hot` in separate terminal windows
+Run `npm run dev` (starts webpack + hot-reloading) and `npm start` (starts electron) in separate terminal windows.
 
 *Note: requires a node version >= 4 and an npm version >= 2.*
 
