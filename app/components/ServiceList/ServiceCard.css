@@ -1,0 +1,33 @@
+.service {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 30px;
+}
+.info {
+  font-size: 12px;
+}
+.serviceMetaWrapper {
+  margin-top: 10px;
+}
+.serviceMeta {
+  font-size: 12px;
+}
+.serviceMetaProperty {
+  font-weight: bold;
+  margin-right: 5px;
+}
+.serviceLink {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+}
+.actions {
+  display: flex;
+  flex-direction: column;
+  button {
+    margin-bottom: 10px;
+  }
+}
+.delete {
+
+}
