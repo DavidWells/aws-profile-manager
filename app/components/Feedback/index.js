@@ -61,7 +61,6 @@ export default class Feedback extends Component {
     })
   }
   handleSubmit = () => {
-    console.log('go')
     this.setState({
       requestInProgess: true,
     })
@@ -92,7 +91,7 @@ export default class Feedback extends Component {
       styles.borders,
       showOrHide
     )
-    const buttonText = (requestInProgess) ? 'Sending...' : 'Submit Feedback'
+    const buttonText = (requestInProgess) ? 'Sending...' : 'Submit Feedback / Feature request'
 
     return (
       <div ref='slideIn' className={styles.feedbackWrapper} style={style}>
