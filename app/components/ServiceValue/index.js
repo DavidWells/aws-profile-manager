@@ -30,8 +30,8 @@ export default class ServiceValue extends React.Component {
   handleBlur = (e, value) => {
     const { service } = this.props
     console.log('handle blur')
-    console.log(this.value)
-    console.log(this.key)
+    // console.log(this.value)
+    // console.log(this.key)
     const currentASTNODE = window.CURRENT_AST[this.key]
     const currentYMLPATH = window.CURRENT_AST.PATH
     if (this.props.updateService) {
@@ -72,7 +72,14 @@ export default class ServiceValue extends React.Component {
      */
     return (
       <span ref='test'>
-        {value}
+        <ContentEditable
+          tagName='span'
+          editKey={valueKey}
+          onChange={this.handleDataChange} // handle innerHTML change
+          onBlur={this.handleBlur} // handle innerHTML change
+        >
+          {value}
+        </ContentEditable>
       </span>
     )
   }

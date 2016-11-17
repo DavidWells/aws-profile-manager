@@ -26,21 +26,18 @@ const FunctionList = (props) => {
     if (func.events && func.events.length) {
       functionEvents = func.events.map((event, i) => {
         const eventDisplay = Object.keys(event).map((eventType, j) => {
-          console.log('event', event)
-          console.log('event[eventType]', event[eventType])
-          console.log('typeof event[eventType]', typeof event[eventType])
+          // console.log('event', event)
+          // console.log('event[eventType]', event[eventType])
+          // console.log('typeof event[eventType]', typeof event[eventType])
           let eventValues = event[eventType]
-          var fromVar = event[`${eventType}_variable`]
+          var fromVar = event[`${eventType}_var`]
           console.log('fromVar', fromVar)
           if (event[eventType] && typeof event[eventType] === 'object') {
             eventValues = Object.keys(event[eventType]).map((property, n) => {
               const value = event[eventType][property]
-              const editPathTest = `functions.${functionName}.events[${i}].${eventType}.${property}`
-              const editPath = `functions.${functionName}.events.${eventType}.${property}`
-              console.log('property', property)
-              console.log('TTT', editPath)
-              console.log('LOOOOOOK', editPathTest)
-              console.log('found in master', window.CURRENT_AST[editPath])
+              // path to value in JSON and AST
+              const editPath = `functions.${functionName}.events[${i}].${eventType}.${property}`
+
               const isFromVariable = event[eventType][`${property}_variable`]
               if (typeof value !== 'object') {
                 const displayVal = (typeof value === 'boolean') ? JSON.stringify(value) : value
@@ -59,7 +56,7 @@ const FunctionList = (props) => {
                   )
                 }
                 return (
-                  <li key={n}>
+                  <li key={`event-prop-${n}`}>
                     <span className={styles.property}>
                       {property}:
                     </span>
@@ -71,7 +68,7 @@ const FunctionList = (props) => {
             })
           }
           return (
-            <div key={j} className={styles.eventDisplay}>
+            <div key={`event-value-${j}`} className={styles.eventDisplay}>
               <div>
                 Event - {eventType}
               </div>
@@ -83,7 +80,7 @@ const FunctionList = (props) => {
         })
 
         return (
-          <div key={i}>
+          <div key={`event-${i}`}>
             {eventDisplay}
           </div>
         )

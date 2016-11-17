@@ -25,6 +25,8 @@ import {
   region as defaultRegion,
   stage as defaultStage,
 } from '../constants/serviceDefaults'
+import flattenObject from '../utils/flattenObject'
+import unflattenObject from '../utils/unflattenObject'
 import saveServicesToStorage from '../utils/saveServicesToStorage'
 
 export default (state = {}, action) => {
@@ -75,31 +77,25 @@ export default (state = {}, action) => {
       return newState3
     case UPDATE_SERVICE:
       console.log('REDUCER RAN UPDATE SERVICE')
-      console.log('action.service', action.service)
-      console.log('action.valuePath', action.valuePath)
-      console.log('action.newValue', action.newValue)
+      // console.log('action.service', action.service)
+      // console.log('action.valuePath', action.valuePath)
+      // console.log('action.newValue', action.newValue)
       const objectpath = action.valuePath.replace('service.config.', '')
-      console.log('objectpath', objectpath)
+      // console.log('objectpath', objectpath)
       const newConfig = { ...{}, ...action.service.config }
-      console.log('newConfig', newConfig)
-      if (newConfig[objectpath]) {
-        console.log('path found')
-      } else {
-        const lookup = objectpath.split('.')
-        console.log('lookup', lookup)
-        console.log('path doesnt exist')
+      const flatConfig = flattenObject(newConfig)
+      if (flatConfig[objectpath]) {
+        flatConfig[objectpath] = action.newValue
       }
-      objectPath.set(newConfig, objectpath, action.newValue)
-      // console.log('newConfig mutate', newConfig)
-      // const newStateUpdateService = objectPath.set(state, "a.h", "m");
+      const updatedConfig = unflattenObject(flatConfig)
+      // objectPath.set(newConfig, objectpath, action.newValue)
       const newStateUpdateService = {
         ...state,
         [action.service.id]: {
           ...state[action.service.id],
-          config: newConfig
+          config: updatedConfig
         }
       }
-      // console.log('newStateUpdateService', newStateUpdateService)
       // Note: this is a side-effect and should be handled with redux-sage or similar
       saveServicesToStorage(newStateUpdateService)
       return newStateUpdateService
