@@ -110,7 +110,6 @@
     "fs-extra": "^1.0.0",
     "js-yaml": "^3.6.1",
     "lodash": "^4.16.4",
-    "object-path": "^0.11.2",
     "postcss": "^5.1.2",
     "raven": "^0.12.1",
     "raven-js": "^3.8.0",

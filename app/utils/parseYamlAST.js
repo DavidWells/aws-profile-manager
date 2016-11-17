@@ -1,6 +1,6 @@
 import fs from 'fs'
 import yaml from 'yaml-ast-parser'
-
+/*eslint-disable */
 /**
  * TODO: Make pure functions
  */

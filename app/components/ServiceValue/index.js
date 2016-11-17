@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react'
-import { getPropertyByString } from '../../utils/objectLookup'
 import updateYamlFileValue from '../../utils/yaml/updateYamlContents'
 import ContentEditable from '../ContentEditable'
 
@@ -9,7 +8,7 @@ const propTypes = {
   updateService: PropTypes.func,
 }
 export default class ServiceValue extends React.Component {
-  constructor (props, context) {
+  constructor(props, context) {
     super(props, context)
     this.value = props.value
     this.key = props.valueKey.replace(/^service.config./, '')
@@ -17,14 +16,13 @@ export default class ServiceValue extends React.Component {
   }
   handleDataChange = (e, value) => {
     console.log(e)
-    console.log(this.refs.test.innerHTML)
     console.log(e.target)
-    console.log('updated this', e.target.dataset.key +'=' + e.target.value)
-    console.log('change range', window.CURRENT_AST[e.target.dataset.key])
-    const currentASTNODE = window.CURRENT_AST[e.target.dataset.key]
-    const currentYMLPATH = window.CURRENT_AST.PATH
+    // console.log('updated this', e.target.dataset.key +'=' + e.target.value)
+    // console.log('change range', window.CURRENT_AST[e.target.dataset.key])
+    // const currentASTNODE = window.CURRENT_AST[e.target.dataset.key]
+    // const currentYMLPATH = window.CURRENT_AST.PATH
     this.value = e.target.value
-    //this.key = e.target.dataset.key
+    // this.key = e.target.dataset.key
     // updateYamlFileValue(e.target.value, currentASTNODE, currentYMLPATH)
   }
   handleBlur = (e, value) => {

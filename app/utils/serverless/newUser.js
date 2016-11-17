@@ -1,7 +1,7 @@
-import getAppVersion from '../electron/getAppVersion'
-import getAppPath from '../electron/getAppPath'
 import uuid from 'uuid'
 import axios from 'axios'
+import getAppVersion from '../electron/getAppVersion'
+import getAppPath from '../electron/getAppPath'
 
 export function setUUID() {
   if (!window.localStorage.getItem('id')) {

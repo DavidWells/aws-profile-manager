@@ -7,7 +7,6 @@
 
 /* eslint-disable no-case-declarations, no-redeclare */
 import omit from 'lodash/omit'
-import objectPath from 'object-path' // TODO use immutable version
 import {
   ADD_SERVICE,
   REMOVE_SERVICE,

@@ -30,7 +30,7 @@ const FunctionList = (props) => {
           // console.log('event[eventType]', event[eventType])
           // console.log('typeof event[eventType]', typeof event[eventType])
           let eventValues = event[eventType]
-          var fromVar = event[`${eventType}_var`]
+          const fromVar = event[`${eventType}_var`]
           console.log('fromVar', fromVar)
           if (event[eventType] && typeof event[eventType] === 'object') {
             eventValues = Object.keys(event[eventType]).map((property, n) => {

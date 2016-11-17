@@ -193,7 +193,7 @@ class CreateService extends Component {
         </div>
         <div className={styles.createButton}>
           <Button
-            style={{padding: '10px 20px', fontSize: '22px' }}
+            style={{ padding: '10px 20px', fontSize: '22px' }}
             type='button'
             onClick={this.createService}
           >
