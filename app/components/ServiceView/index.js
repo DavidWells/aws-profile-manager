@@ -56,7 +56,7 @@ export default class ServiceView extends Component {
   handleDataChange = (e, value) => {
     console.log(e)
     console.log(e.target)
-    console.log('updated this', e.target.dataset.key +'=' + e.target.value)
+    // console.log('updated this', e.target.dataset.key +'=' + e.target.value)
   }
   render() {
     const { props } = this

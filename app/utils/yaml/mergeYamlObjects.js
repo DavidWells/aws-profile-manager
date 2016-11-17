@@ -75,6 +75,7 @@ export default function mergeYamlObjects(target, source) {
       target[prop] = item // eslint-disable-line
       if (source[prop] && targetItem && (targetItem !== item)) {
         // Add variable reference to configuration object
+        // TODO: fix for array values
         target[`${prop}_var`] = targetItem // eslint-disable-line
       }
     }

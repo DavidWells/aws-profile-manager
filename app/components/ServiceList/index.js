@@ -1,18 +1,11 @@
 import React, { PropTypes } from 'react'
-import { map } from 'lodash'
-import { Link } from 'react-router'
 import Modal from 'serverless-site/src/components/Modal'
 import Layout from '../Layout'
-import Card from '../Card'
 import Button from '../Button'
 import ServiceCard from './ServiceCard'
 import AddService from '../AddService'
 import styles from './ServiceList.css'
-import {
-  PATH_NOT_FOUND,
-  PARSING_YAML_FAILED,
-} from '../../constants/errors'
-const shell = require('electron').shell
+
 // import { sync as checkFileExists } from 'path-exists' // todo check folder paths exist
 
 export default class ServicesList extends React.Component {

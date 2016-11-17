@@ -1,9 +1,18 @@
 import fs from 'fs'
 import yaml from 'yaml-ast-parser'
-
+/*eslint-disable */
 /**
  * TODO: Make pure functions
  */
+// this -> functions.FourOhFourTracker.events.http
+// needs to be -> functions.FourOhFourTracker.events[0].http.method
+/*
+array items is kind: 3
+Value is object kind is: 2
+ITEM key = kind 1 // top level key kind is: 1
+String value is kind: 0
+*/
+
 
 let lineNumbers
 /* Parse yaml to check for variables */
@@ -31,13 +40,12 @@ export default function parseYamlAST(ymlPath) {
     return e
   }
 }
-
+let globalCount = 0 // global array counter for normalization. TODO: refactor
 function parseAST(ast, valueWithParent, nullValues) {
   if (!ast) {
     nullValues.push(astError('Empty Node', -1))
     return
   }
-
   if (Object.hasOwnProperty.call(ast, 'mappings')) {
     const chainKey = findParentChain(ast)
     const chain = (!chainKey) ? 'AST' : chainKey
@@ -50,9 +58,16 @@ function parseAST(ast, valueWithParent, nullValues) {
     const chain = findParentChain(ast)
     window.CURRENT_AST[chain] = ast
     // add lineNumber for reference
-    window.CURRENT_AST[chain].lineNumber = getLineNumber(ast.startPosition, ast.endPosition, lineNumbers)
-    // array of strings
+    window.CURRENT_AST[chain].lineNumber = getLineNumber(
+      ast.startPosition,
+      ast.endPosition,
+      lineNumbers
+    )
+    // reset global array count
+    globalCount = -1
+    // iterate through item array
     ast.items.forEach((each) => {
+      globalCount++ // increment global array pointer
       return parseAST(each, valueWithParent, nullValues)
     })
   } else if (Object.hasOwnProperty.call(ast, 'value')) {
@@ -135,11 +150,18 @@ function findclosestParentKeyName(valueNode) {
   findclosestParentKeyName(valueNode.parent)
 }
 
-function findParentChain(node) {
+function findParentChain(node, kind) {
   const chain = []
+
   while (node.parent) {
     if (node.parent.key && node.parent.key.value) {
-      chain.push(node.parent.key.value)
+      let val = node.parent.key.value
+      if (node.kind === 3) {
+        // console.log(`ARRAY NODE. key ${node.parent.key.value}`, node)
+        // console.log('global globalCount', globalCount)
+        val = `${node.parent.key.value}[${globalCount}]`
+      }
+      chain.push(val)
     }
     node = node.parent // eslint-disable-line
   }
