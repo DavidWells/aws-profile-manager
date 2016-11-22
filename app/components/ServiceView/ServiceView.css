@@ -89,7 +89,9 @@
   width: 40%;
   height: 100%;
 }
-
+.modal {
+  width: 70vw;
+}
 .modalButtons {
   display: flex;
   button {
