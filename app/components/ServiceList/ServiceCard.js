@@ -75,7 +75,7 @@ const ServiceCard = ({ service, showDeleteModal }) => {
           type='button'
           onClick={() => showDeleteModal(service.id)}
         >
-          Delete
+          Remove from list
         </Button>
       </div>
     </Card>
