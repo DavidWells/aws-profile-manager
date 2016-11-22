@@ -2,7 +2,7 @@
   "name": "serverless-dashboard",
   "productName": "Serverless",
   "protocol": "serverless-dash",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Serverless Desktop app",
   "main": "desktop/main.js",
   "scripts": {
