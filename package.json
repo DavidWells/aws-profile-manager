@@ -26,19 +26,9 @@
   "bin": {
     "electron": "./node_modules/.bin/electron"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/serverless/dashboard.git"
-  },
-  "author": {
-    "name": "David Wells",
-    "email": "david@serverless.com",
-    "url": "https://github.com/davidwells"
-  },
+  "repository": "serverless/dashboard",
+  "author": "David Wells <david@serverless.com>",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/serverless/dashboard/issues"
-  },
   "homepage": "https://github.com/serverless/dashboard#readme",
   "devDependencies": {
     "asar": "^0.12.2",
