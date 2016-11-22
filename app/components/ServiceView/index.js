@@ -4,6 +4,7 @@ import Modal from 'serverless-site/src/components/Modal'
 // import { Link } from 'react-router'
 import Select, { Creatable } from 'react-select'
 import { shell } from 'electron'
+import CodeEditor from '../CodeEditor'
 import Layout from '../Layout'
 import Button from '../Button'
 import ServiceValue from '../../containers/ServiceValue'
@@ -19,25 +20,27 @@ import {
 } from '../../constants/errors'
 import findMostRecentInvokeData from '../../utils/findMostRecentInvokeData'
 
-const jsonPlaceholder = `enter your json here e.g.
-
-{
- "key1": "this is an example",
- "key2": 42
+const jsonPlaceholder = `{
+  "key1": "Insert your json here",
+  "key2": "this is an example",
+  "key3": 42
 }`
 
 export default class ServiceView extends Component {
   constructor(props) {
     super(props)
+    const previousInvokeData = findMostRecentInvokeData(props.service.commands)
+    const initialInvokeData = previousInvokeData || jsonPlaceholder
     this.state = {
       showInvokeModal: false,
+      invokeData: initialInvokeData
     }
   }
   handleRunInvoke = () => {
     this.props.runInvoke(
       this.state.currentService,
       this.state.functionName,
-      this.refs.eventData.value,
+      this.state.invokeData,
     )
     setTimeout(() => {
       this.hideInvokeModal()
@@ -57,6 +60,11 @@ export default class ServiceView extends Component {
     console.log(e)
     console.log(e.target)
     // console.log('updated this', e.target.dataset.key +'=' + e.target.value)
+  }
+  handleCodeChange = (value) => {
+    this.setState({
+      invokeData: value,
+    })
   }
   render() {
     const { props } = this
@@ -91,6 +99,9 @@ export default class ServiceView extends Component {
       value: key,
       label: `Profile: ${key}`
     }))
+
+    const previousInvokeData = findMostRecentInvokeData(service.commands)
+    const invokeData = previousInvokeData || jsonPlaceholder
 
     const content = (
       <div className={styles.content}>
@@ -159,7 +170,7 @@ export default class ServiceView extends Component {
               <div>Provider: {service.config.provider.name}</div>
               <div>Runtime: {service.config.provider.runtime}</div>
               <div>
-                <button onClick={() => shell.openItem(service.projectPath)}>
+                <button onClick={() => shell.showItemInFolder(service.projectPath)}>
                   open directory
                 </button>
               </div>
@@ -190,17 +201,14 @@ export default class ServiceView extends Component {
 
         </div>
         <Modal
+          className={styles.modal}
           active={this.state.showInvokeModal}
           onEscKeyDown={this.hideInvokeModal}
           onOverlayClick={this.hideInvokeModal}
           title='Invoke your function with data'
         >
           <div className={styles.invokeBox}>
-            <textarea
-              ref='eventData'
-              placeholder={jsonPlaceholder}
-              defaultValue={findMostRecentInvokeData(service.commands)}
-            />
+            <CodeEditor onChange={this.handleCodeChange} code={invokeData} />
           </div>
           <div className={styles.modalButtons}>
             <Button type='button' onClick={this.handleRunInvoke}>
