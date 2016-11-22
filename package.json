@@ -27,7 +27,7 @@
     "electron": "./node_modules/.bin/electron"
   },
   "repository": "serverless/dashboard",
-  "author": "David Wells <david@serverless.com>",
+  "author": "David Wells <david@serverless.com> (https://github.com/davidwells)",
   "license": "MIT",
   "homepage": "https://github.com/serverless/dashboard#readme",
   "devDependencies": {
