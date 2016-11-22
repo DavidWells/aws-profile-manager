@@ -29,9 +29,11 @@ const jsonPlaceholder = `{
 export default class ServiceView extends Component {
   constructor(props) {
     super(props)
+    const previousInvokeData = findMostRecentInvokeData(props.service.commands)
+    const initialInvokeData = previousInvokeData || jsonPlaceholder
     this.state = {
       showInvokeModal: false,
-      invokeData: findMostRecentInvokeData(props.service.commands)
+      invokeData: initialInvokeData
     }
   }
   handleRunInvoke = () => {
