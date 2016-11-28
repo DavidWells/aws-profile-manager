@@ -12,6 +12,9 @@ const DEBUG = false
 export const getAWSCredentials = () => {
   const fileContents = getAWSCredentialsFile()
   const profiles = {}
+  if (!fileContents) {
+    return profiles
+  }
   const lines = fileContents.split(/\r?\n/)
   let currentSection
   lines.forEach((line) => {
@@ -48,7 +51,7 @@ export function createAWSProfile({ profile, aws_access_key_id, aws_secret_access
 }
 
 export function updateAWSProfile(profileName, newValues) {
-  const filePath = getAWSCredentialsFilePath()
+  const filePath = getAWSCredentialsPath()
   let creds = getAWSCredentialsFile()
   const currentCredsData = getAWSProfileData(profileName)
   if (currentCredsData) {
@@ -77,7 +80,7 @@ export function updateAWSProfile(profileName, newValues) {
 }
 
 export function deleteAWSProfile(profileName) {
-  const filePath = getAWSCredentialsFilePath()
+  const filePath = getAWSCredentialsPath()
   const fileContents = getAWSCredentialsFile()
   const profileData = getAWSProfileData(profileName)
   if (profileData) {
@@ -149,7 +152,7 @@ export function getAWSProfileData(profileName) {
 }
 
 export const appendAwsCredentials = ({ profile, awsAccessKeyId, awsSecretAccessKey }) => {
-  const credentialsPath = getAWSCredentialsFilePath()
+  const credentialsPath = getAWSCredentialsPath()
   try {
     const content = [
       `[${profile}]\n`,
@@ -166,7 +169,7 @@ export const appendAwsCredentials = ({ profile, awsAccessKeyId, awsSecretAccessK
 /*
   Returns string of path to aws file
 */
-export const getAWSCredentialsFilePath = () => {
+export const getAWSCredentialsPath = () => {
   const { env } = process
   const home = env.HOME || env.USERPROFILE || (env.HOMEPATH ? ((env.HOMEDRIVE || 'C:/') + env.HOMEPATH) : null)
   if (!home) {
@@ -179,11 +182,11 @@ export const getAWSCredentialsFilePath = () => {
   Returns string of contents of aws crendentials file
 */
 export const getAWSCredentialsFile = () => {
-  const credentialsPath = getAWSCredentialsFilePath()
+  const credentialsPath = getAWSCredentialsPath()
   try {
     return fs.readFileSync(credentialsPath).toString()
   } catch (err) {
-    return {}
+    return false
   }
 }
 
