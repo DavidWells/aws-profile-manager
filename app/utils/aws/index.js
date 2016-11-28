@@ -151,8 +151,20 @@ export function getAWSProfileData(profileName) {
   return false
 }
 
+function ensureDirectoryExistence(filePath) {
+  const dirname = path.dirname(filePath)
+  if (fs.existsSync(dirname)) {
+    return true
+  }
+  ensureDirectoryExistence(dirname)
+  fs.mkdirSync(dirname)
+}
+
 export const appendAwsCredentials = ({ profile, awsAccessKeyId, awsSecretAccessKey }) => {
   const credentialsPath = getAWSCredentialsPath()
+  // ensure that .aws folder exists
+  ensureDirectoryExistence(credentialsPath)
+
   try {
     const content = [
       `[${profile}]\n`,
@@ -162,6 +174,7 @@ export const appendAwsCredentials = ({ profile, awsAccessKeyId, awsSecretAccessK
     fs.appendFileSync(credentialsPath, content)
     return getAWSCredentials()
   } catch (err) {
+    console.log(err)
     return {}
   }
 }
