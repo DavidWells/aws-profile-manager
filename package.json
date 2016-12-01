@@ -30,6 +30,11 @@
   "author": "David Wells <david@serverless.com> (https://github.com/davidwells)",
   "license": "MIT",
   "homepage": "https://github.com/serverless/dashboard#readme",
+  "config": {
+   "ghooks": {
+     "pre-push": "npm run lint"
+   }
+  },
   "devDependencies": {
     "asar": "^0.12.2",
     "babel-core": "^6.14.0",
@@ -66,6 +71,7 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "fbjs-scripts": "^0.7.1",
     "file-loader": "^0.9.0",
+    "ghooks": "^1.3.2",
     "jsdom": "^9.4.3",
     "json-loader": "^0.5.4",
     "minimist": "^1.2.0",
