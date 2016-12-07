@@ -1,5 +1,0 @@
-dashboard_dev:
-  build:
-    dockerfile_path: ./foundation/docker/Dockerfile.ci
-    image: serverless/dashboard
-  cached: true
