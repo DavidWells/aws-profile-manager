@@ -4,7 +4,7 @@ Electron app useful for managing your AWS credentials
 
 ⊂◉‿◉つ
 
-## [Download the Mac App](http://bit.ly/aws-profile-manager)
+## [Download the Mac App](https://s3-us-west-2.amazonaws.com/assets.dashboard/AWS+Profile+Manager.app.zip)
 
 Or install locally
 
