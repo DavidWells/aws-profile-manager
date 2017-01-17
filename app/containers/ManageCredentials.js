@@ -20,9 +20,7 @@ const Creds = (props) => {
     return <AddCredentials addCredentials={props.addCredentials} />
   }
   return (
-    <div>
-      <ManageCredentials credentials={props.credentials} />
-    </div>
+    <ManageCredentials credentials={props.credentials} {...props} />
   )
 }
 

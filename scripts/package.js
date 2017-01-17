@@ -14,15 +14,15 @@ const del = require('del')
 const opn = require('opn')
 const exec = require('child_process').exec
 const argv = require('minimist')(process.argv.slice(2))
-const serverlessPkg = require('serverless/package.json')
+const serverlessPkg = {}
 const pkg = require('../package.json')
 const appName = argv.name || argv.n || pkg.productName
 const shouldUseAsar = argv.asar || argv.a || false
 const shouldBuildAll = argv.all || false
 const deps = Object.keys(pkg.dependencies)
 const devDeps = Object.keys(pkg.devDependencies)
-const slsDeps = Object.keys(serverlessPkg.dependencies)
-const slsDevDeps = Object.keys(serverlessPkg.devDependencies)
+const slsDeps = []
+const slsDevDeps = []
 
 const renameModulePath = (name) => {
   return `/node_modules/${name}($|/)`

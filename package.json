@@ -13,7 +13,7 @@
     "start-prod": "cross-env NODE_ENV=production electron ./",
     "dev": "cross-env NODE_ENV=development node -r babel-register server.js",
     "start": "cross-env HOT=1 NODE_ENV=development electron -r babel-register -r babel-polyfill ./desktop/main.development",
-    "package": "cross-env NODE_ENV=production node -r babel-register -r babel-polyfill scripts/package.js",
+    "package": "rm -rf release && cross-env NODE_ENV=production node -r babel-register -r babel-polyfill scripts/package.js",
     "package-all": "npm run package -- --all",
     "postinstall": "node node_modules/fbjs-scripts/node/check-dev-engines.js package.json",
     "_devMode": "concurrently --kill-others \"npm run dev\" \"npm start\"",
