@@ -3,6 +3,7 @@ import Modal from 'serverless-site/src/components/Modal'
 import Form from 'serverless-site/src/components/Form'
 import Button from '../Button'
 import Card from '../Card'
+import getAppVersion from '../../utils/electron/getAppVersion'
 import styles from './ManageCredentials.css'
 
 const propTypes = {
@@ -236,6 +237,7 @@ export default class ManageCredentials extends React.Component {
         >
           {this.renderModalContents()}
         </Modal>
+        <h5>Current app version: {getAppVersion}</h5>
       </div>
     )
   }

@@ -138,11 +138,6 @@ function pack(plat, arch, cb) {
     platform: plat,
     arch,
     prune: true,
-    protocols: [{
-      name: DEFAULT_OPTS.name,
-      // TODO: change protocol name
-      schemes: [pkg.protocol]
-    }],
     'app-version': pkg.version || DEFAULT_OPTS.version,
     out: `release/${plat}-${arch}`,
     overwrite: true,

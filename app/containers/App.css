@@ -1,4 +1,4 @@
-$navHeight: 45px;
+$navHeight: 65px;
 $NavBackground: #FFD426;
 .app {
   display: flex;
@@ -9,6 +9,7 @@ $NavBackground: #FFD426;
 .navigationWrapper {
   color: #1C1C1C;
   background: #FFF;
+  margin-bottom: 10px;
 }
 .navigationFixed {
   position: fixed;

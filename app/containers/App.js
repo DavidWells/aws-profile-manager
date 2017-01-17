@@ -2,9 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 import { shell } from 'electron'
 import Logo from '../../static/images/bolt.svg'
-import Feedback from '../components/Feedback'
 import checkForUpdates from '../utils/checkForUpdates'
-import SettingsIcon from '../../static/images/settings.svg'
 import styles from './App.css'
 
 // eslint-disable-next-line react/prefer-stateless-function
@@ -60,18 +58,14 @@ export default class App extends Component {
               </Link>
             </div>
             <div className={styles.middleNav}>
-              <Link to='/'>Services</Link>
-              {updateText}
+              <h2>Unofficial AWS Profile Manager</h2>
             </div>
             <div className={styles.rightNav}>
-              <Link className={styles.settings} to='/settings'>
-                <img src={SettingsIcon} role='presentation' />
-              </Link>
+
             </div>
           </div>
         </div>
         {this.props.children}
-        <Feedback />
       </div>
     )
   }

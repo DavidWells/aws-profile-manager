@@ -3,7 +3,6 @@
  */
 import path from 'path'
 import { app, BrowserWindow, Menu, shell, ipcMain } from 'electron'
-import checkIfExistingUser from './utils/checkIfExistingUser'
 
 const installDevExtensions = async () => {
   if (process.env.NODE_ENV === 'development') {
@@ -22,7 +21,7 @@ const installDevExtensions = async () => {
   }
 }
 // import pkg from './package.json'
-// const autoUpdater = require('./auto-updater')
+
 const isDev = (process.env.NODE_ENV === 'development')
 let menu
 let template
@@ -33,9 +32,6 @@ if (isDev) {
   require('electron-debug')()
 }
 
-// eslint-disable-next-line global-require
-// Raven tracking is broken. This needs to be verified with `npm run package` that is works in the packaged application.
-// require('./utils/setupErrorTracking')()
 
 process.on('uncaughtException', (error) => {
   console.error(`ERROR Exception => ${error.stack}`)
@@ -69,18 +65,6 @@ app.on('ready', async () => {
 
   // turn on when signing keys ready
   // autoUpdater.initialize()
-
-  ipcMain.on('ui-ready', (event, arg) => {
-    const userId = checkIfExistingUser()
-    event.sender.send('userId', userId)
-  })
-
-  ipcMain.on('reset-and-restart-app', (event, arg) => {
-    event.sender.send('debugFromRestartMain', 'it ran')
-    app.relaunch({ args: process.argv.slice(1).concat(['--relaunch']) })
-    app.exit(0)
-    event.sender.send('debugFromRestartMain', 'relaunch ran?')
-  })
 
   mainWindow = new BrowserWindow({
     show: false,
@@ -120,7 +104,7 @@ app.on('ready', async () => {
     template = [{
       label: 'Electron',
       submenu: [{
-        label: 'About Serverless Dashboard',
+        label: 'About',
         selector: 'orderFrontStandardAboutPanel:'
       }, {
         type: 'separator'
@@ -233,22 +217,7 @@ app.on('ready', async () => {
       submenu: [{
         label: 'Learn More',
         click() {
-          shell.openExternal('http://serverless.com')
-        }
-      }, {
-        label: 'Documentation',
-        click() {
-          shell.openExternal('http://serverless.com/framework/docs')
-        }
-      }, {
-        label: 'Community Discussions',
-        click() {
-          shell.openExternal('http://forum.serverless.com')
-        }
-      }, {
-        label: 'Community Chat',
-        click() {
-          shell.openExternal('https://gitter.im/serverless/serverless')
+          shell.openExternal('https://github.com/DavidWells/aws-profile-manager')
         }
       }]
     }]
