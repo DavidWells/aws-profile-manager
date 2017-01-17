@@ -15,7 +15,7 @@ const mapStateToProps = (state) => {
 }
 
 const Creds = (props) => {
-  console.log(props)
+  // console.log(props)
   if (isEmpty(props.credentials)) {
     return <AddCredentials addCredentials={props.addCredentials} />
   }

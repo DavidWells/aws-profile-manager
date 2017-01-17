@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 import { shell } from 'electron'
 import Logo from '../../static/images/bolt.svg'
-import checkForUpdates from '../utils/checkForUpdates'
 import styles from './App.css'
 
 // eslint-disable-next-line react/prefer-stateless-function
@@ -16,24 +15,9 @@ export default class App extends Component {
       update: false
     }
   }
-  componentDidMount() {
-    checkForUpdates().then((data) => {
-      console.log('check', data)
-      if (data.version) {
-        this.setState({
-          update: data
-        })
-        // eslint-disable-next-line no-console
-        console.log('version out of date!')
-        // eslint-disable-next-line no-console
-        console.log('new version data', data)
-        // do update alert
-      }
-    })
-  }
   handleDownload = (e) => {
     e.preventDefault()
-    shell.openExternal('http://bit.ly/serverless-dashboard')
+    shell.openExternal('https://github.com/DavidWells/aws-profile-manager')
   }
   render() {
     // const { update } = this.state
