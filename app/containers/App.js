@@ -53,7 +53,7 @@ export default class App extends Component {
               <h2>Unofficial AWS Profile Manager</h2>
             </div>
             <div className={styles.rightNav}>
-              {/*empty*/}
+              {/* empty */}
             </div>
           </div>
         </div>
