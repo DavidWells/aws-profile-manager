@@ -36,15 +36,7 @@ export default class App extends Component {
     shell.openExternal('http://bit.ly/serverless-dashboard')
   }
   render() {
-    const { update } = this.state
-    let updateText
-    if (update) {
-      updateText = (
-        <div className={styles.update} onClick={this.handleDownload}>
-          🎉 Good news. An update is available! <b>Click to Download v{update.version} 🚀</b>
-        </div>
-      )
-    }
+    // const { update } = this.state
     return (
       <div className={styles.app}>
         <div className={styles.navigationWrapper}>

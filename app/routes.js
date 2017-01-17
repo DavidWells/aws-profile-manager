@@ -8,7 +8,7 @@ export default (
   <Route path='/' component={App}>
     <IndexRoute component={ManageCredentials} />
     <Route path='/add-credentials' component={AddCredentials} />
-    <Route path='/manage-credentials' component={ManageCredentials}  />
-    <Route path='*' component={ManageCredentials}  />
+    <Route path='/manage-credentials' component={ManageCredentials} />
+    <Route path='*' component={ManageCredentials} />
   </Route>
 )
