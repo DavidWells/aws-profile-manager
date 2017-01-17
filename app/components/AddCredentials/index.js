@@ -28,9 +28,12 @@ class AddCredentials extends Component {
     const consoleLink = 'https://console.aws.amazon.com/console/home'
     return (
       <div className={styles.wrapper}>
-        <h2>Welcome to the Serverless Dashboard</h2>
+        <h2>Welcome to the AWS credentials manager</h2>
 
-        <p>It looks like you don't have any AWS credentials on your computer.</p>
+        <p>
+          It looks like you don't have any AWS credentials on your computer.
+        </p>
+
         <p style={{ marginBottom: 20 }}>
           <a
             onClick={(e) => { e.preventDefault(); shell.openExternal(consoleLink) }}
