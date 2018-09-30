@@ -1,0 +1,43 @@
+$z-index-highest: 300;
+$overlay-color: #000;
+$overlay-opacity: .6;
+$animation-duration: .35s;
+$animation-curve-default: cubic-bezier(0.4, 0, 0.2, 1);
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: $z-index-highest;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  &.invisible > *:not(.backdrop) {
+    pointer-events: all;
+  }
+}
+
+.backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: $overlay-color;
+  opacity: 0;
+  transition-timing-function: $animation-curve-default;
+  transition-duration: $animation-duration;
+  transition-property: opacity;
+}
+
+.active {
+  pointer-events: all;
+  > .backdrop {
+    opacity: $overlay-opacity;
+  }
+}

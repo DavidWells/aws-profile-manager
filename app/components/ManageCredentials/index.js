@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
-import Modal from 'serverless-site/src/components/Modal'
-import Form from 'serverless-site/src/components/Form'
+import Modal from '../Modal'
+import Form from '../Form'
 import Button from '../Button'
 import Card from '../Card'
 import getAppVersion from '../../utils/electron/getAppVersion'

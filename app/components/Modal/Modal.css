@@ -1,0 +1,82 @@
+$dialog-content-padding: 10px;
+$dialog-border-radius: 0;
+$dialog-color-title: #000;
+$dialog-color-white: #fff;
+$dialog-content-padding: 20px;
+$dialog-navigation-padding: 10px;
+$dialog-translate-y: 4rem;
+
+.dialog {
+  display: flex;
+  max-width: 96vw;
+  max-height: 96vh;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 0;
+  opacity: 0;
+  transition-delay: $animationDelay;
+  transition-timing-function: $animationCurveDefault;
+  transition-duration: $animationDuration;
+  transition-property: opacity, transform;
+  transform: translateY(-$dialog-translate-y);
+  &.active {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+  a {
+    color: $black2;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0,0,0,0.5);
+  }
+}
+
+.small {
+  width: 30vw;
+
+  @media screen and (max-width: $breakpointSmTablet) {
+    width: 50vw;
+  }
+
+  @media screen and (max-width: $breakpointXs) {
+    width: 75vw;
+  }
+}
+
+.normal {
+  width: 50vw;
+
+  @media screen and (max-width: $breakpointXs) {
+    width: 90vw;
+    margin-left: -2vw;
+  }
+}
+
+.large {
+  width: 96vw;
+}
+
+.title {
+  flex-grow: 0;
+  margin: 0;
+  color: $dialog-color-title;
+}
+
+.body {
+  flex-grow: 2;
+  padding: $dialog-content-padding;
+  overflow-y: auto;
+  color: #000;
+}
+
+.navigation {
+  flex-grow: 0;
+  padding: $dialog-navigation-padding;
+  text-align: right;
+}
+
+.button {
+  min-width: 0;
+  padding-right: $dialog-navigation-padding;
+  padding-left: $dialog-navigation-padding;
+  margin-left: $dialog-navigation-padding;
+}
